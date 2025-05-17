@@ -1,7 +1,7 @@
 #!/bin/bash
 
 BACKUPS_DESTINATION="/data-hdd/backups/arch-beast"
-
+##sss
 # format:
 # rsync -a --delete --quiet /path/to/backup /location/of/backup
 
