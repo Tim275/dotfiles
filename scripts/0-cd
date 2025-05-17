@@ -1,0 +1,21 @@
+#!/bin/bash
+# zo - Use fzf to select directories only and output a cd command for eval
+
+# Use find to list directories, then pipe to fzf for interactive selection
+selected_dir=$(find . -type d -not -path '*/\.*' | fzf --height 40% --border --prompt="Select a directory: ")
+
+# Check if a directory was selected
+if [ -n "$selected_dir" ]; then
+  # Print debug info to stderr so it’s not evaluated
+  echo "Selected directory: '$selected_dir'" >&2
+
+  # Verify the directory exists and is a directory
+  if [ -d "$selected_dir" ]; then
+    # Output only the cd command to stdout for eval
+    printf 'cd %q\n' "$selected_dir"
+  else
+    echo "Error: '$selected_dir' is not a valid directory" >&2
+  fi
+else
+  echo "No directory selected" >&2
+fi

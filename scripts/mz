@@ -1,0 +1,3 @@
+#!/bin/bash
+
+mv "$1" "$ZETTELKASTEN/00-zettelkasten/"

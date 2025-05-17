@@ -1,0 +1,16 @@
+#!/bin/bash
+
+SED_COMMAND="sed"
+
+if [[ "$OSTYPE" == darwin* ]]; then
+  SED_COMMAND="gsed"
+fi
+
+$SED_COMMAND -i 's/size = 25/size = 38/g' "$DOTFILES/alacritty.toml"
+
+cat <<EOF
+Recording checklist:
+- Check if microphone is on
+- Turn on Keycastr - ctrl opt cmd K
+- Verify if recording proper screen
+EOF

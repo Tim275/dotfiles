@@ -1,0 +1,10 @@
+#!/bin/bash
+
+SED_COMMAND="sed"
+
+if [[ "$OSTYPE" == darwin* ]]; then
+  SED_COMMAND="gsed"
+fi
+
+$SED_COMMAND -i 's/size = 38/size = 25/g' "$DOTFILES/alacritty.toml"
+$SED_COMMAND -i 's/size = 95/size = 25/g' "$DOTFILES/alacritty.toml"

@@ -1,0 +1,130 @@
+#!/bin/bash
+
+# A bash script that helps me create notes for my blog
+# by running 'blog zet' or 'blog article' a markdown file is created in the proper directory, with my chosen filename.
+
+HOSTING_REPO="$REPOS/github.com/mischavandenburg/tech-blog-hosting/"
+
+# get_filename prompts the user for a filename
+get_filename() {
+	read -p "Enter a filename: " filename
+}
+
+# open_file creates and opens a file in the specified directory
+open_file() {
+
+	date=$(date +"%Y-%m-%d")
+	timestamp="$(date +"%Y%m%d%H%m")"
+	# Cd into the directory
+	cd "$1" || exit
+	# Create the file in the specified directory
+	touch "$1/$filename.md"
+
+	# cd into second brain
+	cd "$ZETTELKASTEN" || exit
+
+	# Format the title by removing dashes
+	title=$filename
+	title="${title//-/ }"
+
+	# set up the yaml frontmatter
+	echo "---" >>"$1/$filename.md"
+	echo "title: $filename" >>"$1/$filename.md"
+	echo "date: $date" >>"$1/$filename.md"
+
+	if [[ $2 = "zet" ]]; then
+		echo "tags:" >>"$1/$filename.md"
+		echo "- " >>"$1/$filename.md"
+	fi
+
+	if [[ $2 = "article" ]]; then
+		echo "tags:" >>"$1/$filename.md"
+		echo "- Article" >>"$1/$filename.md"
+	fi
+
+	echo "---" >>"$1/$filename.md"
+	echo -en "\n" >>"$1/$filename.md"
+	echo -en "\n" >>"$1/$filename.md"
+	echo -en "\n" >>"$1/$filename.md"
+	echo "## Links:" >>"$1/$filename.md"
+	echo -en "\n" >>"$1/$filename.md"
+	echo "$timestamp" >>"$1/$filename.md"
+
+	# Open the file in Neovim
+	nvim '+ normal 2GzzA' "$1/$filename.md" -c :NoNeckPain
+
+}
+
+# Check the value of the first parameter
+case "$1" in
+zet)
+	# Call the function to get the filename
+	get_filename
+
+	# Call the function to create and open the file in the specified directory
+	open_file "$HOME/websites/blog/content/zet" "zet"
+
+	;;
+article)
+	# Call the function to get the filename
+	get_filename
+
+	# Call the function to create and open the file in the specified directory
+	open_file "$HOME/websites/blog/content/zet/articles" "article"
+	;;
+
+reset)
+	rm -rf "$HOME/websites/blog/public"
+	cd "$HOME/websites/blog/" || exit
+	hugo
+	hugo server --disableFastRender
+	;;
+
+pub)
+	# ask for commit message, rebuild the site, push to blog repo, then push to hosting repo
+	read -p "Enter commit message: " commitmessage
+
+	read -p "Would you like to tweet + toot that? (y/n) " will_tweet
+
+	if [[ $will_tweet == [Yy]* ]]; then
+		read -p "Enter tags, or press enter to post without tags: " tags
+	fi
+
+	cd "$HOME/websites/blog/" || exit
+	rm -rf "$HOME/websites/blog/public"
+	hugo
+	git add .
+	git commit -m "$commitmessage"
+	git push
+	rm -rf "$HOSTING_REPO*"
+	cp -r "$HOME"/websites/blog/public/* "$HOSTING_REPO"
+	cd "$HOSTING_REPO" || exit
+	git add .
+	git commit -m "$commitmessage"
+	git push
+
+	if [[ $will_tweet == [Yy]* ]]; then
+		echo "Waiting 10 seconds to allow it to publish before tweeting."
+		sleep 10
+
+		# post to twitter/mastodon without tags
+		if [[ $tags == "" ]]; then
+			tweet
+			toot
+			exit
+		fi
+		tweet "$tags"
+		toot "$tags"
+	fi
+	;;
+
+"")
+	# Change to the websites/blog directory if no argument was given
+	cd "$HOME/websites/blog" || exit
+	;;
+
+*)
+	# Print an error message if the parameter was not "zet" or "article"
+	echo "Error: Invalid parameter. Usage: blog zet|article|pub"
+	;;
+esac

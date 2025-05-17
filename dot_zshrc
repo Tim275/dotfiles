@@ -1,0 +1,271 @@
+# ~~~~~~~~~~~~~~~ SSH ~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+# Using GPG + YubiKey for ssh.
+# Don't execute when in dev container
+
+
+if [[ -z "$REMOTE_CONTAINERS" && -z "$CODESPACES" && -z "$DEVCONTAINER_TYPE" ]]; then
+  export GPG_TTY="$(tty)"
+  unset SSH_AGENT_PID
+
+  if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
+  export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+  fi
+
+  gpgconf --launch gpg-agent
+  gpg-connect-agent updatestartuptty /bye > /dev/null 2>&1
+
+fi
+
+
+# ~~~~~~~~~~~~~~~ Environment Variables ~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+if command -v nvim > /dev/null ; then
+  export EDITOR="nvim"
+  export VISUAL="nvim"
+fi
+
+
+if command -v vivaldi > /dev/null ; then
+  export BROWSER="vivaldi"
+fi
+
+export LANG="en_US.UTF-8"
+
+# Directories
+
+export REPOS="$HOME/Repos"
+export GITUSER="mischavandenburg"
+export GHREPOS="$REPOS/github.com/$GITUSER"
+export DOTFILES="$HOME/.local/share/chezmoi"
+export SCRIPTS="$DOTFILES/scripts"
+export ICLOUD="$HOME/icloud"
+export ZETTELKASTEN="$HOME/Zettelkasten"
+
+# Go related. In general all executables and scripts go in .local/bin
+
+export GOBIN="$HOME/.local/bin"
+export GOPRIVATE="github.com/$GITUSER/*,gitlab.com/$GITUSER/*"
+# export GOPATH="$HOME/.local/share/go"
+export GOPATH="$HOME/go/"
+
+
+# ~~~~~~~~~~~~~~~ Mise ~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+if command -v mise > /dev/null ; then
+  eval "$($HOME/.local/bin/mise activate zsh)"
+fi
+
+
+# ~~~~~~~~~~~~~~~ Path configuration ~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+setopt extended_glob null_glob
+
+path=(
+    $path                           # Keep existing PATH entries
+    $HOME/bin
+    $HOME/.local/bin
+    $HOME/dotnet
+    /home/linuxbrew/.linuxbrew/opt/dotnet@8/bin # Dotnet for dev container
+    $SCRIPTS
+    $HOME/.krew/bin
+    $HOME/.rd/bin                   # Rancher Desktop
+    /home/vscode/.local/bin         # Dev Container Specifics
+    /root/.local/bin                # Dev Container Specifics
+)
+
+# Remove duplicate entries and non-existent directories
+typeset -U path
+path=($^path(N-/))
+
+export PATH
+
+
+# ~~~~~~~~~~~~~~~ Dev Container Specifics ~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+if [ -d "/home/linuxbrew/.linuxbrew" ]; then
+     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
+
+# ~~~~~~~~~~~~~~~ History ~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+HISTFILE=~/.zsh_history
+HISTSIZE=100000
+SAVEHIST=100000
+
+setopt HIST_IGNORE_SPACE  # Don't save when prefixed with space
+setopt HIST_IGNORE_DUPS   # Don't save duplicate lines
+setopt SHARE_HISTORY      # Share history between sessions
+
+
+# ~~~~~~~~~~~~~~~ Prompt ~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+PURE_GIT_PULL=0
+
+
+if [[ "$OSTYPE" == darwin* ]]; then
+  fpath+=("$(brew --prefix)/share/zsh/site-functions")
+else
+  fpath+=($HOME/.zsh/pure)
+fi
+
+autoload -U promptinit; promptinit
+prompt pure
+
+
+# enable zsh vi-mode
+
+bindkey -v
+export KEYTIMEOUT=1 # make switching between modes faster
+
+
+# ~~~~~~~~~~~~~~~ Aliases ~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+alias v=nvim
+
+if command -v bat > /dev/null ; then
+  alias cat="bat"
+fi
+
+alias scripts='cd $SCRIPTS'
+alias cdblog="cd ~/websites/blog"
+alias c="clear"
+alias icloud="cd \$ICLOUD"
+
+if command -v lsd > /dev/null ; then
+  alias ls="lsd"
+  alias ll="ls -lgh"
+  alias la='ls -lathr'
+  alias lla='ls -lgha'
+  alias lt='ls --tree'
+fi
+
+
+# 0
+
+alias 0='cd $HOME/0'
+alias zo='eval "$($SCRIPTS/0-cd)"'
+
+# Repos
+
+alias lab='cd $LAB'
+alias dot='cd $HOME/.local/share/chezmoi'
+alias repos='cd $REPOS'
+alias ghrepos='cd $GHREPOS'
+alias gr='ghrepos'
+alias cdgo='cd $GHREPOS/go/'
+
+# Homelab
+
+alias homelab='cd $GHREPOS/homelab/'
+alias hl='homelab'
+
+# finds all files recursively and sorts by last modification, ignore hidden files
+alias lastmod='find . -type f -not -path "*/\.*" -exec ls -lrt {} +'
+
+alias t='tmux'
+alias e='exit'
+
+alias syu='sudo pacman -Syu'
+
+# Azure
+
+alias sub='az account set -s'
+
+# Git
+
+alias gp='git pull'
+alias gs='git status'
+alias lg='lazygit'
+
+
+# Zettelkasten
+
+alias in="cd \$ZETTELKASTEN/0\ Inbox/"
+alias cdzk="cd \$ZETTELKASTEN"
+
+
+# Kubernetes
+
+alias k='kubectl'
+
+alias kgp='kubectl get pods'
+alias kc='kubectx'
+alias kn='kubens'
+
+alias fgk='flux get kustomizations'
+
+# Pass
+
+alias pc='pass show -c'
+
+# Devpod
+
+alias ds='devpod ssh'
+
+# Bluetooth
+
+# Airpods Max
+alias btm='bluetoothctl connect 08:FF:44:0E:EA:D6'
+
+# Airpods
+alias bta='bluetoothctl connect 08:65:18:78:BD:A6'
+
+# ~~~~~~~~~~~~~~~ Completion ~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+fpath+=~/.zfunc
+
+if type brew &>/dev/null; then
+    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+fi
+
+autoload -Uz compinit
+compinit -u
+
+zstyle ':completion:*' menu select
+
+if command -v fzf > /dev/null ; then
+  source <(fzf --zsh)
+fi
+
+if command -v k3d > /dev/null ; then
+  source <(k3d completion zsh)
+fi
+
+if command -v kubectl > /dev/null ; then
+  source <(kubectl completion zsh)
+fi
+
+if command -v flux > /dev/null ; then
+  source <(flux completion zsh)
+fi
+
+if command -v mise > /dev/null ; then
+  source <(mise completion zsh)
+fi
+
+
+# ~~~~~~~~~~~~~~~ Sourcing ~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+if [ -f "$HOME/.privaterc" ]; then
+  source "$HOME/.privaterc"
+fi
+
+if command -v direnv > /dev/null ; then
+  eval "$(direnv hook zsh)"
+fi
+
+
+# ~~~~~~~~~~~~~~~ Misc ~~~~~~~~~~~~~~~~~~~~~~~~
+

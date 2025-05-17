@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# Check if ffmpeg is installed
+if ! command -v ffmpeg &>/dev/null; then
+  echo "Error: ffmpeg is not installed"
+  exit 1
+fi
+
+# Counter for processed files
+processed=0
+failed=0
+
+# First check if any mkv files exist
+if ! ls ./*.mkv >/dev/null 2>&1; then
+  echo "No MKV files found in the current directory"
+  exit 0
+fi
+
+# Process each file using for loop directly
+for file in *.mkv; do
+  # Ensure we actually have a file (in case of no matches)
+  [ -f "$file" ] || continue
+
+  # Extract filename without extension
+  filename=$(basename "$file" .mkv)
+
+  # Create output filename
+  output_file="${filename}-transcoded.mp4"
+
+  echo "Processing: $file"
+  echo "Output will be: $output_file"
+
+  # Run ffmpeg command
+  if ffmpeg -i "$file" -c:v copy -c:a alac "$output_file" 2>/dev/null; then
+    echo "Successfully transcoded: $file"
+    ((processed++))
+  else
+    echo "Failed to transcode: $file"
+    ((failed++))
+    # Remove partial output file if it exists
+    [ -f "$output_file" ] && rm "$output_file"
+  fi
+
+  echo "----------------------------------------"
+done
+
+echo "Transcoding complete!"
+echo "Successfully processed: $processed files"
+echo "Failed: $failed files"
