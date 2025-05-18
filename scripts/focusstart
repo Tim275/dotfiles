@@ -1,6 +1,0 @@
-#!/bin/bash
-pomo start
-
-if [[ $(dndstatus) = "Do Not Disturb is turned Off." ]]; then
-	dnd
-fi

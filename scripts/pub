@@ -1,7 +1,0 @@
-#!/bin/bash
-cd /home/mischa/git/testing
-echo x >> README.md
-git status
-git add .
-git commit -m "bash"
-git push

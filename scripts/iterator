@@ -1,9 +1,0 @@
-#!/bin/bash
-
-# Your list
-list=("Car" "Monastic" "Muziek")
-
-# Iterate through the list
-for item in "${list[@]}"; do
-	echo "$item"
-done

@@ -1,6 +1,0 @@
-#!/bin/bash
-
-pomo start
-
-figlet On a break
-figlet will return when pomo reaches 40 minutes
