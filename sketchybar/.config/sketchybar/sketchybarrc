@@ -1,0 +1,136 @@
+#!/bin/bash
+
+# ============================================================================
+# SKETCHYBAR CONFIG - Cyberdream Theme
+# ============================================================================
+
+# Cyberdream Colors
+BACKGROUND=0xff16181a
+FOREGROUND=0xffffffff
+CYAN=0xff5ef1ff
+GREEN=0xff5eff6c
+YELLOW=0xfff1ff5e
+RED=0xffff6e5e
+MAGENTA=0xffff5ef1
+BLUE=0xff5ea1ff
+GREY=0xff7b8496
+BG_HIGHLIGHT=0xff3c4048
+
+# Bar Appearance
+sketchybar --bar \
+  height=32 \
+  blur_radius=20 \
+  position=top \
+  sticky=on \
+  padding_left=10 \
+  padding_right=10 \
+  color=$BACKGROUND \
+  shadow=on
+
+# Default Item Appearance
+sketchybar --default \
+  icon.font="JetBrainsMono Nerd Font:Bold:14.0" \
+  icon.color=$CYAN \
+  label.font="JetBrainsMono Nerd Font:Regular:12.0" \
+  label.color=$FOREGROUND \
+  background.color=$BG_HIGHLIGHT \
+  background.corner_radius=5 \
+  background.height=24 \
+  padding_left=5 \
+  padding_right=5
+
+# ─────────────────────────────────────────────────────────────────────────────
+# LEFT SIDE
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Apple Logo
+sketchybar --add item apple left \
+           --set apple \
+                 icon= \
+                 icon.color=$CYAN \
+                 icon.padding_left=8 \
+                 icon.padding_right=8 \
+                 background.drawing=off
+
+# Current Space/Workspace
+sketchybar --add item space left \
+           --set space \
+                 script="$CONFIG_DIR/plugins/space.sh" \
+                 icon.drawing=off \
+                 label.color=$FOREGROUND \
+                 background.color=$BG_HIGHLIGHT \
+                 background.padding_left=8 \
+           --subscribe space space_change
+
+# Front App
+sketchybar --add item front_app left \
+           --set front_app \
+                 script="$CONFIG_DIR/plugins/front_app.sh" \
+                 icon.drawing=off \
+                 label.color=$GREY \
+                 background.drawing=off \
+           --subscribe front_app front_app_switched
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CENTER
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Clock
+sketchybar --add item clock center \
+           --set clock \
+                 script="$CONFIG_DIR/plugins/clock.sh" \
+                 update_freq=10 \
+                 icon= \
+                 icon.color=$CYAN \
+                 label.color=$FOREGROUND \
+                 background.color=$BG_HIGHLIGHT
+
+# ─────────────────────────────────────────────────────────────────────────────
+# RIGHT SIDE
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Battery
+sketchybar --add item battery right \
+           --set battery \
+                 script="$CONFIG_DIR/plugins/battery.sh" \
+                 update_freq=120 \
+                 icon.color=$GREEN \
+                 label.color=$FOREGROUND \
+                 background.drawing=off \
+           --subscribe battery system_woke power_source_change
+
+# CPU
+sketchybar --add item cpu right \
+           --set cpu \
+                 script="$CONFIG_DIR/plugins/cpu.sh" \
+                 update_freq=5 \
+                 icon=󰻠 \
+                 icon.color=$RED \
+                 label.color=$FOREGROUND \
+                 background.drawing=off
+
+# Memory
+sketchybar --add item memory right \
+           --set memory \
+                 script="$CONFIG_DIR/plugins/memory.sh" \
+                 update_freq=10 \
+                 icon=󰍛 \
+                 icon.color=$YELLOW \
+                 label.color=$FOREGROUND \
+                 background.drawing=off
+
+# Kubernetes Context (DevOps!)
+sketchybar --add item kubectl right \
+           --set kubectl \
+                 script="$CONFIG_DIR/plugins/kubectl.sh" \
+                 update_freq=30 \
+                 icon=󱃾 \
+                 icon.color=$BLUE \
+                 label.color=$FOREGROUND \
+                 background.drawing=off
+
+# ─────────────────────────────────────────────────────────────────────────────
+# FINALIZE
+# ─────────────────────────────────────────────────────────────────────────────
+
+sketchybar --update

@@ -1,0 +1,51 @@
+# =============================================================================
+# GHOSTTY CONFIG - Catppuccin Mocha (matching nvim + tmux + starship)
+# =============================================================================
+
+# Font
+font-family = "JetBrainsMono Nerd Font"
+font-size = 14
+
+# Catppuccin Mocha Theme
+background = 1e1e2e
+foreground = cdd6f4
+
+# Normal colors (Catppuccin Mocha)
+palette = 0=#45475a
+palette = 1=#f38ba8
+palette = 2=#a6e3a1
+palette = 3=#f9e2af
+palette = 4=#89b4fa
+palette = 5=#cba6f7
+palette = 6=#94e2d5
+palette = 7=#bac2de
+
+# Bright colors
+palette = 8=#585b70
+palette = 9=#f38ba8
+palette = 10=#a6e3a1
+palette = 11=#f9e2af
+palette = 12=#89b4fa
+palette = 13=#cba6f7
+palette = 14=#94e2d5
+palette = 15=#a6adc8
+
+# Cursor
+cursor-color = f5e0dc
+cursor-style = block
+
+# Window - Omer style (no decoration, blur)
+window-padding-x = 10
+window-padding-y = 10
+window-decoration = false
+background-blur-radius = 20
+
+# Background opacity
+background-opacity = 0.95
+
+# Behavior
+mouse-hide-while-typing = true
+macos-option-as-alt = true
+
+# Shell integration
+shell-integration = zsh

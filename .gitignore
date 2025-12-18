@@ -1,0 +1,23 @@
+# tmux plugins (managed by TPM)
+tmux/plugins/
+
+# Secrets
+.env
+*.pem
+*.key
+id_rsa*
+credentials*
+
+# Caches
+.cache/
+*.log
+.DS_Store
+
+# Neovim
+nvim/lazy-lock.json
+nvim/.luarc.json
+
+# Local overrides
+*.local
+*.backup*
+CHEATSHEET.md

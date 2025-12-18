@@ -1,0 +1,157 @@
+# Search mode: prefix, fulltext, fuzzy, skim
+search_mode = "fuzzy"
+
+# Filter mode: global, host, session, directory
+filter_mode = "global"
+
+# When pressing up arrow, filter by directory (great for project-specific history)
+filter_mode_shell_up_key_binding = "directory"
+
+# UI style: auto, full, compact
+style = "compact"
+
+# Show preview of long commands
+show_preview = true
+max_preview_height = 4
+
+# Show help bar
+show_help = true
+
+# Show tabs
+show_tabs = true
+
+# Execute immediately on enter (Tab to edit first)
+enter_accept = true
+
+# Vim-style keybindings
+keymap_mode = "vim-insert"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SECURITY - Filter sensitive commands
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Auto-filter secrets (AWS keys, GitHub tokens, etc.)
+secrets_filter = true
+
+# Custom filters - never save these patterns
+history_filter = [
+    "^export AWS_",
+    "^export GITHUB_TOKEN",
+    "^export KUBECONFIG=.*secret",
+    "^kubectl create secret",
+    "^kubectl apply.*secret",
+    "^echo.*password",
+    "^echo.*token",
+    ".*--password[= ]",
+    ".*-p [A-Za-z0-9]",
+    ".*API_KEY=",
+    ".*SECRET=",
+    "^sops -d",
+    "^gpg --decrypt",
+    "^ansible-vault decrypt",
+    "^base64 -d.*secret",
+]
+
+# Don't record history in sensitive directories
+cwd_filter = [
+    "^/tmp/secrets",
+    ".*/\\.kube$",
+    ".*/\\.aws$",
+    ".*/\\.ssh$",
+]
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SYNC
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Enable automatic sync
+auto_sync = true
+
+# Sync frequency
+sync_frequency = "5m"
+
+# Use sync v2 (better performance)
+[sync]
+records = true
+
+# ─────────────────────────────────────────────────────────────────────────────
+# STATS - DevOps command tracking
+# ─────────────────────────────────────────────────────────────────────────────
+
+[stats]
+# Track subcommands for these tools (kubectl get vs kubectl apply)
+common_subcommands = [
+    # Kubernetes
+    "kubectl",
+    "helm",
+    "flux",
+    "argocd",
+    "talosctl",
+    "k3s",
+    "k9s",
+
+    # Infrastructure
+    "terraform",
+    "tofu",
+    "ansible",
+    "ansible-playbook",
+    "vagrant",
+    "packer",
+
+    # Containers
+    "docker",
+    "podman",
+    "nerdctl",
+    "docker-compose",
+
+    # Cloud CLIs
+    "aws",
+    "gcloud",
+    "az",
+
+    # Package managers
+    "brew",
+    "apt",
+    "dnf",
+    "npm",
+    "yarn",
+    "pnpm",
+    "pip",
+    "cargo",
+    "go",
+
+    # Version control
+    "git",
+    "gh",
+    "glab",
+
+    # System
+    "systemctl",
+    "journalctl",
+    "launchctl",
+]
+
+# Strip sudo from stats
+common_prefix = ["sudo", "time", "nocorrect"]
+
+# Ignore trivial commands in stats
+ignored_commands = [
+    "cd",
+    "ls",
+    "ll",
+    "la",
+    "pwd",
+    "clear",
+    "cls",
+    "exit",
+    "q",
+    "history",
+]
+
+# ─────────────────────────────────────────────────────────────────────────────
+# KEYBINDINGS
+# ─────────────────────────────────────────────────────────────────────────────
+
+[keys]
+# Allow scrolling past first/last entry
+scroll_exits = true

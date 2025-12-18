@@ -1,0 +1,5 @@
+--target=/Users/timour
+--ignore=README.md
+--ignore=CHEATSHEET.md
+--ignore=.git
+--ignore=.gitignore

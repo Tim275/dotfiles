@@ -1,0 +1,51 @@
+[tools]
+node = "22"
+
+# Go (for kubectl plugins, custom tools)
+go = "latest"
+
+# Python (for Ansible, scripts)
+python = "3.12"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CLI Utilities
+# ─────────────────────────────────────────────────────────────────────────────
+bat = "latest"
+fzf = "latest"
+ripgrep = "latest"
+fd = "latest"
+jq = "latest"
+yq = "latest"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Kubernetes Tools (via mise/asdf)
+# ─────────────────────────────────────────────────────────────────────────────
+kubectl = "latest"
+helm = "latest"
+kustomize = "latest"
+k9s = "latest"
+kubectx = "latest"
+stern = "latest"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Infrastructure as Code
+# ─────────────────────────────────────────────────────────────────────────────
+terraform = "latest"
+# opentofu = "latest"  # Uncomment if using OpenTofu
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Settings
+# ─────────────────────────────────────────────────────────────────────────────
+[settings]
+# Use idiomatic version files (.python-version, .node-version, etc.)
+idiomatic_version_file = true
+idiomatic_version_file_enable_tools = ["python", "node", "go"]
+
+# Always use latest for minor versions
+legacy_version_file = true
+
+# Trust all config files (set to false for more security)
+trusted_config_paths = ["~/Desktop/kubecraft"]
+
+# Experimental features
+experimental = false

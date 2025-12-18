@@ -1,0 +1,173 @@
+[user]
+    name = Tim275
+    email = sagichdirnicht259@outlook.de
+
+[init]
+    defaultBranch = main
+
+[core]
+    editor = nvim
+    pager = delta
+    autocrlf = input
+    whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+    excludesfile = ~/.gitignore_global
+
+[credential]
+    helper = store
+
+[push]
+    autoSetupRemote = true
+    default = current
+    followTags = true
+
+[pull]
+    rebase = true
+
+[fetch]
+    prune = true
+    prunetags = true
+
+[merge]
+    conflictstyle = zdiff3
+    tool = nvim
+
+[mergetool "nvim"]
+    cmd = nvim -d $LOCAL $REMOTE $MERGED -c 'wincmd J'
+
+[diff]
+    algorithm = histogram
+    colorMoved = default
+    tool = nvim
+
+[difftool "nvim"]
+    cmd = nvim -d $LOCAL $REMOTE
+
+[rebase]
+    autoStash = true
+    autoSquash = true
+
+[rerere]
+    enabled = true
+
+[branch]
+    sort = -committerdate
+
+[tag]
+    sort = -version:refname
+
+[column]
+    ui = auto
+
+# ─────────────────────────────────────────────────────────────────────────────
+# DELTA - Beautiful Diffs
+# ─────────────────────────────────────────────────────────────────────────────
+[delta]
+    navigate = true
+    side-by-side = true
+    line-numbers = true
+    syntax-theme = Dracula
+    file-style = bold yellow ul
+    file-decoration-style = yellow box
+    hunk-header-style = file line-number syntax
+    hunk-header-decoration-style = cyan box ul
+
+[interactive]
+    diffFilter = delta --color-only
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ALIASES - DevOps Workflow
+# ─────────────────────────────────────────────────────────────────────────────
+[alias]
+    # Status & Info
+    s = status -sb
+    ss = status
+    last = log -1 HEAD --stat
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    ll = log --oneline -20
+    branches = branch -a --sort=-committerdate
+    tags = tag -l --sort=-version:refname
+    remotes = remote -v
+    contributors = shortlog -sne
+
+    # Quick Actions
+    a = add
+    aa = add -A
+    ap = add -p
+    c = commit -m
+    ca = commit -am
+    amend = commit --amend --no-edit
+    undo = reset --soft HEAD~1
+    unstage = reset HEAD --
+    discard = checkout --
+
+    # Branching
+    co = checkout
+    cob = checkout -b
+    br = branch
+    brd = branch -d
+    brD = branch -D
+
+    # Sync
+    f = fetch --all --prune
+    p = push
+    pf = push --force-with-lease
+    pl = pull --rebase
+    sync = !git fetch --all --prune && git pull --rebase
+
+    # Stash
+    st = stash
+    stp = stash pop
+    stl = stash list
+    std = stash drop
+
+    # Diff
+    d = diff
+    dc = diff --cached
+    ds = diff --stat
+
+    # Cleanup
+    cleanup = !git branch --merged | grep -v '\\*\\|main\\|master\\|develop' | xargs -n 1 git branch -d
+    prune-all = !git remote prune origin && git gc --prune=now
+
+    # DevOps specific
+    wip = !git add -A && git commit -m 'WIP: work in progress [skip ci]'
+    save = !git add -A && git commit -m 'SAVEPOINT [skip ci]'
+    fixup = !git add -A && git commit --fixup HEAD
+    squash = !git rebase -i --autosquash
+
+    # Info
+    whoami = !git config user.name && git config user.email
+    root = rev-parse --show-toplevel
+    current = rev-parse --abbrev-ref HEAD
+
+# ─────────────────────────────────────────────────────────────────────────────
+# URL REWRITES
+# ─────────────────────────────────────────────────────────────────────────────
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+
+[url "git@gitlab.com:"]
+    insteadOf = https://gitlab.com/
+
+# ─────────────────────────────────────────────────────────────────────────────
+# COLORS
+# ─────────────────────────────────────────────────────────────────────────────
+[color]
+    ui = auto
+
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+    whitespace = red reverse
+
+[color "status"]
+    added = green
+    changed = yellow
+    untracked = cyan
