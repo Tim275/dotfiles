@@ -1,11 +1,6 @@
-# ══════════════════════════════════════════════════════════════════════════════
-# ATUIN CONFIG - DevOps Enterprise Edition
 # Shell history that syncs, searches, and learns
-# ══════════════════════════════════════════════════════════════════════════════
 
-# ─────────────────────────────────────────────────────────────────────────────
 # SEARCH & UI
-# ─────────────────────────────────────────────────────────────────────────────
 
 # Search mode: prefix, fulltext, fuzzy, skim
 search_mode = "fuzzy"
@@ -35,9 +30,7 @@ enter_accept = true
 # Vim-style keybindings
 keymap_mode = "vim-insert"
 
-# ─────────────────────────────────────────────────────────────────────────────
 # SECURITY - Filter sensitive commands
-# ─────────────────────────────────────────────────────────────────────────────
 
 # Auto-filter secrets (AWS keys, GitHub tokens, etc.)
 secrets_filter = true
@@ -69,9 +62,7 @@ cwd_filter = [
     ".*/\\.ssh$",
 ]
 
-# ─────────────────────────────────────────────────────────────────────────────
 # SYNC
-# ─────────────────────────────────────────────────────────────────────────────
 
 # Enable automatic sync
 auto_sync = true
@@ -83,9 +74,7 @@ sync_frequency = "5m"
 [sync]
 records = true
 
-# ─────────────────────────────────────────────────────────────────────────────
 # STATS - DevOps command tracking
-# ─────────────────────────────────────────────────────────────────────────────
 
 [stats]
 # Track subcommands for these tools (kubectl get vs kubectl apply)
@@ -157,9 +146,7 @@ ignored_commands = [
     "history",
 ]
 
-# ─────────────────────────────────────────────────────────────────────────────
 # KEYBINDINGS
-# ─────────────────────────────────────────────────────────────────────────────
 
 [keys]
 # Allow scrolling past first/last entry

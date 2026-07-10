@@ -7,4 +7,8 @@ for b in /opt/homebrew/bin/brew /usr/local/bin/brew /home/linuxbrew/.linuxbrew/b
 done
 command -v brew >/dev/null 2>&1 || exit 0
 
-brew bundle --global --no-upgrade
+if [ "$(uname -s)" = "Darwin" ]; then
+  brew bundle --global --no-upgrade
+else
+  grep -vE '^(cask|vscode|mas) ' "$HOME/.Brewfile" | brew bundle --file=- --no-upgrade
+fi

@@ -5,10 +5,12 @@
 -- Add NVM node to PATH for LSP servers (yaml-language-server, etc.)
 -- NVM Node dynamisch laden (unabhängig von der Version)
 local nvm_default = vim.env.HOME .. "/.nvm/alias/default"
-local node_version = vim.fn.system("cat " .. nvm_default):gsub("%s+", "")
-local node_bin = vim.env.HOME .. "/.nvm/versions/node/v" .. node_version .. "/bin"
-if vim.fn.isdirectory(node_bin) == 1 then
-  vim.env.PATH = node_bin .. ":" .. vim.env.PATH
+if vim.fn.filereadable(nvm_default) == 1 then
+  local node_version = vim.fn.readfile(nvm_default)[1]:gsub("%s+", "")
+  local node_bin = vim.env.HOME .. "/.nvm/versions/node/v" .. node_version .. "/bin"
+  if vim.fn.isdirectory(node_bin) == 1 then
+    vim.env.PATH = node_bin .. ":" .. vim.env.PATH
+  end
 end
 
 vim.opt.wrap = true
@@ -20,8 +22,9 @@ vim.opt.guicursor = "n-v-c:block-Cursor,i-ci-ve:block-Cursor,r-cr:hor20,o:hor50"
 vim.api.nvim_set_hl(0, "Cursor", { fg = "#000000", bg = "#ff0000" })
 vim.api.nvim_set_hl(0, "CursorLine", { bg = "#1e1e2e" })
 vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#ff0000", bold = true })
-vim.g.codeium_os = "Darwin"
-vim.g.codeium_arch = "arm64"
+local uname = vim.uv.os_uname()
+vim.g.codeium_os = uname.sysname
+vim.g.codeium_arch = uname.machine
 
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0

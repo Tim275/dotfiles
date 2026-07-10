@@ -1,27 +1,18 @@
-# ══════════════════════════════════════════════════════════════════════════════
-# TIMOUR'S ZSHRC - DevOps Gigachad Edition
-# ══════════════════════════════════════════════════════════════════════════════
 
-# ─────────────────────────────────────────────────────────────────────────────
 # COMPLETION (must be early)
-# ─────────────────────────────────────────────────────────────────────────────
 setopt prompt_subst
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 autoload bashcompinit && bashcompinit
 autoload -Uz compinit
 compinit
 
-# ─────────────────────────────────────────────────────────────────────────────
 # PATH
-# ─────────────────────────────────────────────────────────────────────────────
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$(go env GOPATH 2>/dev/null)/bin"
 
-# ─────────────────────────────────────────────────────────────────────────────
 # PLUGINS & TOOLS (cached brew prefix for performance)
-# ─────────────────────────────────────────────────────────────────────────────
 BREW_PREFIX="/opt/homebrew"
 source $BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -34,9 +25,7 @@ eval "$(atuin init zsh)"
 eval "$(direnv hook zsh)"
 eval "$(mise activate zsh)"
 
-# ─────────────────────────────────────────────────────────────────────────────
 # KEYBINDINGS
-# ─────────────────────────────────────────────────────────────────────────────
 bindkey '^w' autosuggest-execute
 bindkey '^e' autosuggest-accept
 bindkey '^u' autosuggest-toggle
@@ -45,16 +34,12 @@ bindkey '^k' up-line-or-search
 bindkey '^j' down-line-or-search
 bindkey jj vi-cmd-mode
 
-# ─────────────────────────────────────────────────────────────────────────────
 # ENVIRONMENT
-# ─────────────────────────────────────────────────────────────────────────────
 export LANG=en_US.UTF-8
 export EDITOR=/opt/homebrew/bin/nvim
 export GITHUB_USER=Tim275
 
-# ─────────────────────────────────────────────────────────────────────────────
 # KUBERNETES (Secure: Use ~/.kube/ for configs)
-# ─────────────────────────────────────────────────────────────────────────────
 export KUBECONFIG="$HOME/.kube/homelab-admin.yaml"
 export TALOSCONFIG="$HOME/.kube/talos-config"
 
@@ -73,9 +58,7 @@ if command -v kubecolor &> /dev/null; then
   function kubectl() { command kubecolor "$@"; }
 fi
 
-# ─────────────────────────────────────────────────────────────────────────────
 # KUBERNETES ALIASES
-# ─────────────────────────────────────────────────────────────────────────────
 # Basic
 alias k="kubectl"
 alias ka="kubectl apply -f"
@@ -131,9 +114,7 @@ alias kevents="kubectl get events --sort-by='.lastTimestamp'"
 alias k8s-talos='export KUBECONFIG=$HOME/.kube/talos-config && echo "🏠 Talos Homelab" && kubectl get nodes'
 alias k8s-k3s='export KUBECONFIG=$HOME/.kube/k3s-config && echo "🐄 k3s Rancher" && kubectl get nodes'
 
-# ─────────────────────────────────────────────────────────────────────────────
 # HELM ALIASES
-# ─────────────────────────────────────────────────────────────────────────────
 alias h="helm"
 alias hl="helm list -A"
 alias hi="helm install"
@@ -148,9 +129,7 @@ alias hh="helm history"
 alias hrb="helm rollback"
 alias hv="helm show values"
 
-# ─────────────────────────────────────────────────────────────────────────────
 # TERRAFORM / OPENTOFU ALIASES
-# ─────────────────────────────────────────────────────────────────────────────
 alias tf="terraform"
 alias tfi="terraform init"
 alias tfp="terraform plan"
@@ -170,9 +149,7 @@ alias tofui="tofu init"
 alias tofup="tofu plan"
 alias tofua="tofu apply"
 
-# ─────────────────────────────────────────────────────────────────────────────
 # ARGOCD / FLUX (GitOps)
-# ─────────────────────────────────────────────────────────────────────────────
 alias argo="argocd"
 alias argoa="argocd app"
 alias argoal="argocd app list"
@@ -186,9 +163,7 @@ alias flr="flux reconcile"
 alias flrk="flux reconcile kustomization"
 alias flrs="flux reconcile source git"
 
-# ─────────────────────────────────────────────────────────────────────────────
 # GIT ALIASES
-# ─────────────────────────────────────────────────────────────────────────────
 alias g="git"
 alias gc="git commit -m"
 alias gca="git commit -a -m"
@@ -226,9 +201,7 @@ alias grb="git rebase"
 alias grbi="git rebase -i"
 alias gm="git merge"
 
-# ─────────────────────────────────────────────────────────────────────────────
 # DOCKER ALIASES
-# ─────────────────────────────────────────────────────────────────────────────
 docker context use rancher-desktop >/dev/null 2>&1
 
 alias d="docker"
@@ -253,18 +226,14 @@ alias dstats="docker stats --no-stream"
 alias dvol="docker volume ls"
 alias dnet="docker network ls"
 
-# ─────────────────────────────────────────────────────────────────────────────
 # ANSIBLE ALIASES
-# ─────────────────────────────────────────────────────────────────────────────
 alias ans="ansible"
 alias ansp="ansible-playbook"
 alias ansv="ansible-vault"
 alias ansg="ansible-galaxy"
 alias ansi="ansible-inventory"
 
-# ─────────────────────────────────────────────────────────────────────────────
 # NAVIGATION & FILES
-# ─────────────────────────────────────────────────────────────────────────────
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
@@ -283,9 +252,7 @@ fcd() { cd "$(find . -type d -not -path '*/.*' | fzf)" && ls; }
 f() { echo "$(find . -type f -not -path '*/.*' | fzf)" | pbcopy; }
 fv() { nvim "$(find . -type f -not -path '*/.*' | fzf)"; }
 
-# ─────────────────────────────────────────────────────────────────────────────
 # TOOLS
-# ─────────────────────────────────────────────────────────────────────────────
 alias v='nvim'
 alias vim='nvim'
 alias lg='lazygit'
@@ -302,16 +269,12 @@ alias ports='lsof -i -P -n | grep LISTEN'
 alias path='echo $PATH | tr ":" "\n"'
 alias reload='source ~/.zshrc && echo "✅ zshrc reloaded"'
 
-# ─────────────────────────────────────────────────────────────────────────────
 # CLAUDE CODE
-# ─────────────────────────────────────────────────────────────────────────────
 alias claude-k8s="claude --append-system-prompt 'Focus on Kubernetes/Cilium troubleshooting'"
 alias claude-tf="claude --append-system-prompt 'Focus on Terraform/OpenTofu infrastructure'"
 alias claude-go="claude --append-system-prompt 'Focus on Golang development'"
 
-# ─────────────────────────────────────────────────────────────────────────────
 # TMUX
-# ─────────────────────────────────────────────────────────────────────────────
 alias t='tmux'
 alias ta='tmux attach -t'
 alias tn='tmux new -s'
@@ -319,17 +282,13 @@ alias tls='tmux list-sessions'
 alias tk='tmux kill-session -t'
 alias tka='tmux kill-server'
 
-# ─────────────────────────────────────────────────────────────────────────────
 # FZF
-# ─────────────────────────────────────────────────────────────────────────────
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND='fd --type d --hidden --follow'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# ─────────────────────────────────────────────────────────────────────────────
 # HELPER FUNCTIONS
-# ─────────────────────────────────────────────────────────────────────────────
 # Quick kubectl edit
 kedit() { kubectl edit "$@"; }
 
