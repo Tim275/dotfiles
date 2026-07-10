@@ -1,0 +1,108 @@
+# =============================================================================
+# GHOSTTY CONFIG - Cyberdream + Optimized for Dashboard Images
+# Inspired by pedrorcruzz
+# =============================================================================
+
+# Display (WICHTIG für bessere Bilder!)
+window-colorspace = "display-p3"
+
+# Font - JetBrainsMono Propo für bessere Proportionen
+font-family = "JetBrainsMono Nerd Font"
+font-size = 12
+font-thicken = true
+adjust-cell-height = 7%
+
+# Cyberdream Theme
+background = 16181a
+foreground = ffffff
+
+# Normal colors
+palette = 0=#16181a
+palette = 1=#ff6e5e
+palette = 2=#5eff6c
+palette = 3=#f1ff5e
+palette = 4=#5ea1ff
+palette = 5=#ff5ef1
+palette = 6=#5ef1ff
+palette = 7=#ffffff
+
+# Bright colors
+palette = 8=#3c4048
+palette = 9=#ff6e5e
+palette = 10=#5eff6c
+palette = 11=#f1ff5e
+palette = 12=#5ea1ff
+palette = 13=#bd5eff
+palette = 14=#5ef1ff
+palette = 15=#ffffff
+
+# Cursor
+cursor-color = 5ef1ff
+cursor-style = block
+
+# Selection
+selection-background = 3c4048
+selection-foreground = ffffff
+
+# Window - Transparent titlebar wie bei ihm
+window-padding-x = 1
+window-padding-y = 1
+window-padding-balance = true
+window-decoration = true
+macos-titlebar-style = transparent
+macos-titlebar-proxy-icon = hidden
+title = " "
+
+# Background
+background-opacity = 0.95
+background-blur-radius = 20
+
+# Behavior
+mouse-hide-while-typing = true
+macos-option-as-alt = false
+confirm-close-surface = false
+copy-on-select = clipboard
+clipboard-read = allow
+clipboard-write = allow
+# Cmd+C = kopieren (copy-on-select kopiert eh schon beim Markieren).
+# Ctrl+C bleibt nativer Interrupt — NICHT auf Cmd+C umbiegen (sonst killt
+# Cmd+C in Claude Code die Aktion statt zu kopieren).
+keybind = super+c=copy_to_clipboard
+# Cmd+V = paste · Ctrl+V passthrough für Claude-Code-Bild-Paste
+keybind = super+v=paste_from_clipboard
+keybind = ctrl+v=unbind
+shell-integration-features = no-cursor, no-title, sudo
+
+# Quick Terminal
+quick-terminal-position = top
+quick-terminal-screen = main
+quick-terminal-animation-duration = 0.15
+keybind = global:cmd+/=toggle_quick_terminal
+
+# Tmux-like keybinds (Cmd+S prefix)
+keybind = super+s>r=reload_config
+keybind = super+s>x=close_surface
+keybind = super+s>c=new_tab
+keybind = super+s>n=new_window
+
+# Tab navigation
+keybind = super+s>1=goto_tab:1
+keybind = super+s>2=goto_tab:2
+keybind = super+s>3=goto_tab:3
+keybind = super+s>4=goto_tab:4
+keybind = super+s>5=goto_tab:5
+
+# Splitting
+keybind = super+s>\=new_split:right
+keybind = super+s>-=new_split:down
+keybind = super+s>e=equalize_splits
+
+# Split navigation
+keybind = super+s>h=goto_split:left
+keybind = super+s>j=goto_split:bottom
+keybind = super+s>k=goto_split:top
+keybind = super+s>l=goto_split:right
+
+# Auto update
+auto-update = check
+auto-update-channel = stable

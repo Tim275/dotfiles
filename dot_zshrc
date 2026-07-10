@@ -1,0 +1,410 @@
+# ══════════════════════════════════════════════════════════════════════════════
+# TIMOUR'S ZSHRC - DevOps Gigachad Edition
+# ══════════════════════════════════════════════════════════════════════════════
+
+# ─────────────────────────────────────────────────────────────────────────────
+# COMPLETION (must be early)
+# ─────────────────────────────────────────────────────────────────────────────
+setopt prompt_subst
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+autoload bashcompinit && bashcompinit
+autoload -Uz compinit
+compinit
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PATH
+# ─────────────────────────────────────────────────────────────────────────────
+export PATH="/opt/homebrew/bin:$PATH"
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$(go env GOPATH 2>/dev/null)/bin"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PLUGINS & TOOLS (cached brew prefix for performance)
+# ─────────────────────────────────────────────────────────────────────────────
+BREW_PREFIX="/opt/homebrew"
+source $BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+eval "$(starship init zsh)"
+export STARSHIP_CONFIG=~/.config/starship/starship.toml
+
+eval "$(zoxide init zsh)"
+eval "$(atuin init zsh)"
+eval "$(direnv hook zsh)"
+eval "$(mise activate zsh)"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# KEYBINDINGS
+# ─────────────────────────────────────────────────────────────────────────────
+bindkey '^w' autosuggest-execute
+bindkey '^e' autosuggest-accept
+bindkey '^u' autosuggest-toggle
+bindkey '^L' vi-forward-word
+bindkey '^k' up-line-or-search
+bindkey '^j' down-line-or-search
+bindkey jj vi-cmd-mode
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ENVIRONMENT
+# ─────────────────────────────────────────────────────────────────────────────
+export LANG=en_US.UTF-8
+export EDITOR=/opt/homebrew/bin/nvim
+export GITHUB_USER=Tim275
+
+# ─────────────────────────────────────────────────────────────────────────────
+# KUBERNETES (Secure: Use ~/.kube/ for configs)
+# ─────────────────────────────────────────────────────────────────────────────
+export KUBECONFIG="$HOME/.kube/homelab-admin.yaml"
+export TALOSCONFIG="$HOME/.kube/talos-config"
+
+alias kube-oidc='export KUBECONFIG=$HOME/.kube/config-oidc && echo "✓ OIDC (timour@iam.timourhomelab.org)"'
+alias kube-admin='export KUBECONFIG=$HOME/.kube/config && echo "⚠  Admin (cert-based, break-glass only)"'
+
+# Completions
+source <(kubectl completion zsh)
+source <(helm completion zsh 2>/dev/null)
+source <(flux completion zsh 2>/dev/null)
+source <(argocd completion zsh 2>/dev/null)
+compdef k=kubectl
+
+# Kubecolor wrapper (better kubectl output)
+if command -v kubecolor &> /dev/null; then
+  function kubectl() { command kubecolor "$@"; }
+fi
+
+# ─────────────────────────────────────────────────────────────────────────────
+# KUBERNETES ALIASES
+# ─────────────────────────────────────────────────────────────────────────────
+# Basic
+alias k="kubectl"
+alias ka="kubectl apply -f"
+alias kd="kubectl describe"
+alias kdel="kubectl delete"
+alias kg="kubectl get"
+alias kga="kubectl get all"
+alias kgaa="kubectl get all -A"
+
+# Pods
+alias kgpo="kubectl get pods"
+alias kgpow="kubectl get pods -o wide"
+alias kgpoa="kubectl get pods -A"
+alias kgpoy="kubectl get pods -o yaml"
+alias ktp="kubectl top pods"
+
+# Deployments & Services
+alias kgd="kubectl get deployments"
+alias kgda="kubectl get deployments -A"
+alias kgsvc="kubectl get services"
+alias kgsec="kubectl get secrets"
+alias kgcm="kubectl get configmaps"
+alias kging="kubectl get ingress"
+alias kgns="kubectl get namespaces"
+alias kgno="kubectl get nodes"
+alias kgnow="kubectl get nodes -o wide"
+alias ktn="kubectl top nodes"
+
+# Logs & Exec
+alias kl="kubectl logs -f --tail=100"
+alias klp="kubectl logs -f --tail=100 -p"  # previous container
+alias ke="kubectl exec -it"
+alias kpf="kubectl port-forward"
+alias krun="kubectl run -it --rm debug --image=alpine --restart=Never -- sh"
+
+# Context & Namespace
+alias kns="kubens"
+alias kc="kubectx"
+alias kcns='kubectl config set-context --current --namespace'
+alias kcc="kubectl config current-context"
+alias kcgc="kubectl config get-contexts"
+
+# Advanced
+alias kdrain="kubectl drain --ignore-daemonsets --delete-emptydir-data"
+alias kcordon="kubectl cordon"
+alias kuncordon="kubectl uncordon"
+alias kroll="kubectl rollout restart"
+alias krollstat="kubectl rollout status"
+alias kscale="kubectl scale"
+alias kevents="kubectl get events --sort-by='.lastTimestamp'"
+
+# Cluster switcher (secure paths)
+alias k8s-talos='export KUBECONFIG=$HOME/.kube/talos-config && echo "🏠 Talos Homelab" && kubectl get nodes'
+alias k8s-k3s='export KUBECONFIG=$HOME/.kube/k3s-config && echo "🐄 k3s Rancher" && kubectl get nodes'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# HELM ALIASES
+# ─────────────────────────────────────────────────────────────────────────────
+alias h="helm"
+alias hl="helm list -A"
+alias hi="helm install"
+alias hu="helm upgrade"
+alias hui="helm upgrade --install"
+alias hd="helm delete"
+alias ht="helm template"
+alias hs="helm search repo"
+alias hr="helm repo"
+alias hru="helm repo update"
+alias hh="helm history"
+alias hrb="helm rollback"
+alias hv="helm show values"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TERRAFORM / OPENTOFU ALIASES
+# ─────────────────────────────────────────────────────────────────────────────
+alias tf="terraform"
+alias tfi="terraform init"
+alias tfp="terraform plan"
+alias tfa="terraform apply"
+alias tfaa="terraform apply -auto-approve"
+alias tfd="terraform destroy"
+alias tfo="terraform output"
+alias tfs="terraform state"
+alias tfsl="terraform state list"
+alias tfv="terraform validate"
+alias tff="terraform fmt -recursive"
+alias tfw="terraform workspace"
+
+# OpenTofu (drop-in replacement)
+alias tofu="tofu"
+alias tofui="tofu init"
+alias tofup="tofu plan"
+alias tofua="tofu apply"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ARGOCD / FLUX (GitOps)
+# ─────────────────────────────────────────────────────────────────────────────
+alias argo="argocd"
+alias argoa="argocd app"
+alias argoal="argocd app list"
+alias argoag="argocd app get"
+alias argoas="argocd app sync"
+alias argoad="argocd app delete"
+
+alias fl="flux"
+alias flg="flux get all"
+alias flr="flux reconcile"
+alias flrk="flux reconcile kustomization"
+alias flrs="flux reconcile source git"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# GIT ALIASES
+# ─────────────────────────────────────────────────────────────────────────────
+alias g="git"
+alias gc="git commit -m"
+alias gca="git commit -a -m"
+alias gcam="git commit --amend"
+alias gp="git push origin HEAD"
+alias gpf="git push --force-with-lease"
+alias gpu="git pull origin"
+alias gpl="git pull --rebase"
+alias gf="git fetch --all --prune"
+alias gst="git status"
+alias gss="git status -s"
+alias glog="git log --graph --topo-order --pretty='%w(100,0,6)%C(yellow)%h%C(bold)%C(black)%d %C(cyan)%ar %C(green)%an%n%C(bold)%C(white)%s %N' --abbrev-commit"
+alias glo="git log --oneline -20"
+alias gdiff="git diff"
+alias gdc="git diff --cached"
+alias gco="git checkout"
+alias gcm="git checkout main 2>/dev/null || git checkout master"
+alias gcb="git checkout -b"
+alias gb='git branch'
+alias gba='git branch -a'
+alias gbd="git branch -d"
+alias gbD="git branch -D"
+alias gadd='git add'
+alias ga='git add -p'
+alias gaa="git add -A"
+alias gr='git remote'
+alias grv='git remote -v'
+alias gre='git reset'
+alias gundo="git reset --soft HEAD~1"
+alias gclean="git clean -fd"
+alias gstash="git stash"
+alias gstashp="git stash pop"
+alias gcp="git cherry-pick"
+alias grb="git rebase"
+alias grbi="git rebase -i"
+alias gm="git merge"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# DOCKER ALIASES
+# ─────────────────────────────────────────────────────────────────────────────
+docker context use rancher-desktop >/dev/null 2>&1
+
+alias d="docker"
+alias dco="docker compose"
+alias dcou="docker compose up -d"
+alias dcod="docker compose down"
+alias dcol="docker compose logs -f"
+alias dcob="docker compose build"
+alias dps="docker ps"
+alias dpsa="docker ps -a"
+alias dl="docker ps -l -q"
+alias dx="docker exec -it"
+alias dlogs="docker logs -f --tail=100"
+alias dins="docker inspect"
+alias dimg="docker images"
+alias drmi="docker rmi"
+alias drm="docker rm"
+alias dstop="docker stop"
+alias dstart="docker start"
+alias dprune="docker system prune -af --volumes"
+alias dstats="docker stats --no-stream"
+alias dvol="docker volume ls"
+alias dnet="docker network ls"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ANSIBLE ALIASES
+# ─────────────────────────────────────────────────────────────────────────────
+alias ans="ansible"
+alias ansp="ansible-playbook"
+alias ansv="ansible-vault"
+alias ansg="ansible-galaxy"
+alias ansi="ansible-inventory"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# NAVIGATION & FILES
+# ─────────────────────────────────────────────────────────────────────────────
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+
+alias ls='eza --icons --group-directories-first'
+alias ll='eza -la --icons --group-directories-first'
+alias la='eza -a --icons --group-directories-first'
+alias lt='eza --tree --level=2 --icons'
+alias lta='eza --tree --level=3 --icons -a'
+alias cat='bat --style=auto'
+
+# FZF navigation (Omer style)
+cx() { cd "$@" && ls; }
+fcd() { cd "$(find . -type d -not -path '*/.*' | fzf)" && ls; }
+f() { echo "$(find . -type f -not -path '*/.*' | fzf)" | pbcopy; }
+fv() { nvim "$(find . -type f -not -path '*/.*' | fzf)"; }
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TOOLS
+# ─────────────────────────────────────────────────────────────────────────────
+alias v='nvim'
+alias vim='nvim'
+alias lg='lazygit'
+alias ld='lazydocker'
+alias lk='k9s'
+alias top='btop'
+alias cl='clear'
+alias http="xh"
+alias fetch='fastfetch'
+alias gitinfo='onefetch'
+alias weather='curl wttr.in'
+alias ip='curl ifconfig.me'
+alias ports='lsof -i -P -n | grep LISTEN'
+alias path='echo $PATH | tr ":" "\n"'
+alias reload='source ~/.zshrc && echo "✅ zshrc reloaded"'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CLAUDE CODE
+# ─────────────────────────────────────────────────────────────────────────────
+alias claude-k8s="claude --append-system-prompt 'Focus on Kubernetes/Cilium troubleshooting'"
+alias claude-tf="claude --append-system-prompt 'Focus on Terraform/OpenTofu infrastructure'"
+alias claude-go="claude --append-system-prompt 'Focus on Golang development'"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TMUX
+# ─────────────────────────────────────────────────────────────────────────────
+alias t='tmux'
+alias ta='tmux attach -t'
+alias tn='tmux new -s'
+alias tls='tmux list-sessions'
+alias tk='tmux kill-session -t'
+alias tka='tmux kill-server'
+
+# ─────────────────────────────────────────────────────────────────────────────
+# FZF
+# ─────────────────────────────────────────────────────────────────────────────
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND='fd --type d --hidden --follow'
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# ─────────────────────────────────────────────────────────────────────────────
+# HELPER FUNCTIONS
+# ─────────────────────────────────────────────────────────────────────────────
+# Quick kubectl edit
+kedit() { kubectl edit "$@"; }
+
+# Get pod shell quickly
+ksh() { kubectl exec -it "$1" -- sh; }
+kbash() { kubectl exec -it "$1" -- bash; }
+
+# Watch resources
+kwatch() { watch -n 2 kubectl get "$@"; }
+
+# Decode base64 secret
+ksec() { kubectl get secret "$1" -o jsonpath="{.data.$2}" | base64 -d; }
+
+# Create namespace if not exists
+knsn() { kubectl get ns "$1" &>/dev/null || kubectl create ns "$1"; }
+
+# Quick port-forward for common services
+kpf-grafana() { kubectl port-forward svc/grafana 3000:80 -n monitoring; }
+kpf-argocd() { kubectl port-forward svc/argocd-server 8080:443 -n argocd; }
+
+# Docker cleanup
+dclean() {
+  docker container prune -f
+  docker image prune -f
+  docker volume prune -f
+  docker network prune -f
+  echo "✅ Docker cleaned!"
+}
+
+# Git branch cleanup
+gcleanb() {
+  git fetch -p
+  git branch -vv | grep ': gone]' | awk '{print $1}' | xargs -r git branch -d
+  echo "✅ Stale branches cleaned!"
+}
+
+# Paste image from clipboard as file path - just type: img
+img() {
+  local f="/tmp/clipboard_$(date +%s).png"
+  if pngpaste "$f" 2>/dev/null; then
+    echo "$f"
+  else
+    echo "Kein Bild in Zwischenablage"
+  fi
+}
+
+# Kubernetes Context Shortcuts
+alias kube-azure="export KUBECONFIG=~/.kube/azure-config && echo '✓ Switched to Azure AKS'"
+alias kube-home="export KUBECONFIG=~/.kube/config && echo '✓ Switched to Homelab'"
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/timour/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+# Homebrew nach Rancher Desktop — überschreibt RD-Tools (helm v4 → v3)
+export PATH="/opt/homebrew/bin:$PATH"
+
+# ── Talos Homelab Aliases (added 2026-05-07) ────────────────────────────
+# Talos: cluster health-check (multi-node aware)
+alias talos-health='talosctl -n 192.168.0.101 health --control-plane-nodes 192.168.0.101 --worker-nodes 192.168.0.103,192.168.0.104,192.168.0.105,192.168.0.107,192.168.0.108,192.168.0.109,192.168.0.110'
+
+# Talos: dashboard für all nodes (interaktiv)
+alias talos-dash='talosctl dashboard'
+
+# Talos: services pro node
+alias talos-services='talosctl services'
+
+# Talos: get all member nodes
+alias talos-members='talosctl get members'
+
+# Talos: kubeconfig refresh (überschreibt ~/.kube/config-talos)
+alias talos-kubeconfig='talosctl kubeconfig --force --merge=false /tmp/kubeconfig-talos && echo "✓ kubeconfig at /tmp/kubeconfig-talos"'
+# lean-ctx: auto-aliasing aus (brach `_lc: command not found` in Scripts/Subshells)
+export LEAN_CTX_DISABLED=1
+# lean-ctx shell hook — begin
+if [ -f "/Users/timour/.config/lean-ctx/shell-hook.zsh" ]; then
+. "/Users/timour/.config/lean-ctx/shell-hook.zsh"
+fi
+# lean-ctx shell hook — end

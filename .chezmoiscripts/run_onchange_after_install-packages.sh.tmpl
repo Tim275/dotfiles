@@ -1,0 +1,10 @@
+#!/bin/bash
+# Brewfile hash: {{ include "dot_Brewfile" | sha256sum }}
+set -eu
+
+for b in /opt/homebrew/bin/brew /usr/local/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
+  [ -x "$b" ] && eval "$("$b" shellenv)" && break
+done
+command -v brew >/dev/null 2>&1 || exit 0
+
+brew bundle --global --no-upgrade

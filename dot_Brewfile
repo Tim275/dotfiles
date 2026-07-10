@@ -1,0 +1,438 @@
+tap "azure/kubelogin"
+tap "derailed/popeye"
+tap "fairwindsops/tap", "https://github.com/FairwindsOps/homebrew-tap"
+tap "felixkratz/formulae", "https://github.com/FelixKratz/homebrew-formulae"
+tap "fluxcd/tap"
+tap "go-task/tap"
+tap "hashicorp/tap"
+tap "int128/kubelogin"
+tap "minio/stable"
+tap "morantron/tmux-fingers"
+tap "nikitabobko/tap"
+tap "siderolabs/tap"
+tap "stripe/stripe-cli"
+tap "supabase/tap"
+tap "terraform-linters/tap"
+tap "yvgude/lean-ctx"
+# Static analysis and lint tool, for (ba)sh scripts
+brew "shellcheck"
+# Static checker for GitHub Actions workflow files
+brew "actionlint"
+# Simple, modern, secure file encryption
+brew "age"
+# Cryptography and SSL/TLS Toolkit
+brew "openssl@3"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.13"
+# Automate deployment, configuration, and upgrading
+brew "ansible"
+# Get stuff done with container-native workflows for Kubernetes
+brew "argo"
+# GitOps Continuous Delivery for Kubernetes
+brew "argocd"
+# Code searching, linting, rewriting
+brew "ast-grep"
+# Improved shell history for zsh, bash, fish and nushell
+brew "atuin"
+# Official Amazon AWS command-line interface
+brew "awscli"
+# Microsoft Azure CLI 2.0
+brew "azure-cli"
+# Clone of cat(1) with syntax highlighting and Git integration
+brew "bat"
+# Resource monitor. C++ version and continuation of bashtop and bpytop
+brew "btop"
+# New way of working with Protocol Buffers
+brew "buf"
+# XML-based font configuration API for X Windows
+brew "fontconfig"
+# GNU compiler collection
+brew "gcc"
+# C library to access the binary planetary ephemeris files
+brew "calceph"
+# Versatile and fast Unicode/ASCII/ANSI graphics renderer
+brew "chafa"
+# Manage your dotfiles across multiple diverse machines, securely
+brew "chezmoi"
+# Manage multiple AI agents like Claude Code, Aider and Codex in your terminal
+brew "claude-squad"
+# Container runtimes on MacOS (and Linux) with minimal setup
+brew "colima"
+# Postgres C API library
+brew "libpq"
+# General-purpose scripting language
+brew "php"
+# Dependency Manager for PHP
+brew "composer"
+# GNU File, Shell, and Text utilities
+brew "coreutils"
+# Apjanke's fork of the classic cowsay project
+brew "cowsay"
+# Load/unload environment variables based on $PWD
+brew "direnv"
+# Pack, ship and run any application as a lightweight container
+brew "docker"
+# Docker CLI plugin for extended build capabilities with BuildKit
+brew "docker-buildx"
+# Isolated development environments using Docker
+brew "docker-compose"
+# Select default apps for documents and URL schemes on macOS
+brew "duti"
+# Modern, maintained replacement for ls
+brew "eza"
+# Like neofetch, but much faster because written mostly in C
+brew "fastfetch"
+# Simple, fast and user-friendly alternative to find
+brew "fd"
+# Play, record, convert, and stream select audio and video codecs
+brew "ffmpeg"
+# Banner-like program prints strings as ASCII art
+brew "figlet"
+# Command-line fuzzy finder written in Go
+brew "fzf"
+# GitHub command-line tool
+brew "gh"
+# Interpreter for PostScript and PDF
+brew "ghostscript"
+# Distributed revision control system
+brew "git"
+# Syntax-highlighting pager for git and diff output
+brew "git-delta"
+# Quickly rewrite git repository history
+brew "git-filter-repo"
+# Render markdown on the CLI
+brew "glow"
+# GNU Privacy Guard (OpenPGP)
+brew "gnupg"
+# Open source programming language to build simple/reliable/efficient software
+brew "go"
+# Database migrations CLI tool
+brew "golang-migrate"
+# Like cURL, but for gRPC
+brew "grpcurl"
+# Smarter Dockerfile linter to validate best practices
+brew "hadolint"
+# Kubernetes package manager
+brew "helm"
+# Language server for Helm
+brew "helm-ls"
+# Improved top (interactive process viewer)
+brew "htop"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.14"
+# User-friendly cURL replacement (command-line HTTP client)
+brew "httpie"
+# Tools and libraries to manipulate images in select formats
+brew "imagemagick"
+# Lightweight and flexible command-line JSON processor
+brew "jq"
+# Little helper to run CNCF's k3s in Docker
+brew "k3d"
+# Scanning your k8s clusters, diagnosing, and triaging issues in simple English
+brew "k8sgpt"
+# Kubernetes CLI To Manage Your Clusters In Style!
+brew "k9s"
+# Tool to move from `docker-compose` to Kubernetes
+brew "kompose"
+# Checks Kubernetes deployment against security best practices (CIS Benchmark)
+brew "kube-bench"
+# SDK for building Kubernetes APIs using CRDs
+brew "kubebuilder"
+# Colorize your kubectl output
+brew "kubecolor"
+# CloudNativePG plugin for kubectl
+brew "kubectl-cnpg"
+# Rook plugin for Ceph management
+brew "kubectl-rook-ceph"
+# Tool that can switch between kubectl contexts easily and create aliases
+brew "kubectx"
+# OpenID Connect authentication plugin for kubectl
+brew "kubelogin"
+# Kubernetes command-line interface
+brew "kubernetes-cli"
+# Kubernetes controller and tool for one-way encrypted Secrets
+brew "kubeseal"
+# Template-free customization of Kubernetes YAML manifests
+brew "kustomize"
+# Lazier way to manage everything docker
+brew "lazydocker"
+# Simple terminal UI for git commands
+brew "lazygit"
+# Convert pixel information into colored ASCII art
+brew "libcaca"
+# Rainbows and unicorns in your console!
+brew "lolcat"
+# Powerful, lightweight programming language
+brew "lua"
+# Package manager for the Lua programming language
+brew "luarocks"
+# Java-based project management
+brew "maven"
+# Run a Kubernetes cluster locally
+brew "minikube"
+# Polyglot runtime manager (asdf rust clone)
+brew "mise"
+# Fast, highly customisable system info script
+brew "neofetch"
+# Ambitious Vim-fork focused on extensibility and agility
+brew "neovim"
+# Networked variant of tetris
+brew "netris"
+# Port scanning utility for large networks
+brew "nmap"
+# Open-source, cross-platform JavaScript runtime environment
+brew "node"
+# Open-source, cross-platform JavaScript runtime environment
+brew "node@22"
+# Command-line Git information tool
+brew "onefetch"
+# Development kit for the Java programming language
+brew "openjdk@21"
+# Drop-in replacement for Terraform. Infrastructure as Code Tool
+brew "opentofu"
+# Execute binaries from Python packages in isolated environments
+brew "pipx"
+# Package compiler and linker metadata toolkit
+brew "pkgconf"
+# Paste PNG into files
+brew "pngpaste"
+# PDF rendering library (based on the xpdf-3.0 code base)
+brew "poppler"
+# Framework for managing multi-language pre-commit hooks
+brew "pre-commit"
+# Protocol buffers (Google's data interchange format)
+brew "protobuf"
+# Pretty, minimal and fast ZSH prompt
+brew "pure"
+# Python version management
+brew "pyenv"
+# Search tool like grep and The Silver Searcher
+brew "ripgrep"
+# Powerful, clean, object-oriented scripting language
+brew "ruby", link: false
+# SOcket CAT: netcat on steroids
+brew "socat"
+# Editor of encrypted files
+brew "sops"
+# Non-interactive SSH password auth
+brew "sshpass"
+# Cross-shell prompt for astronauts
+brew "starship"
+# Tail multiple Kubernetes pods & their containers
+brew "stern"
+# Organize software neatly under a single directory tree (e.g. /usr/local)
+brew "stow"
+# Easiest, most secure way to use WireGuard and 2FA
+brew "tailscale"
+# Modernized, complete, self-contained TeX/LaTeX engine
+brew "tectonic"
+# Define your dev environment as code. For microservice apps on Kubernetes
+brew "tilt"
+# Terminal multiplexer
+brew "tmux"
+# Display directories as trees (with optional color/HTML output)
+brew "tree"
+# Incremental parsing library
+brew "tree-sitter"
+# Vulnerability scanner for container images, file systems, and Git repos
+brew "trivy"
+# Command-line unarchiving tools supporting multiple formats
+brew "unar"
+# Disaster recovery for Kubernetes resources and persistent volumes
+brew "velero"
+# Internet file retriever
+brew "wget"
+# Tools for the WireGuard secure network tunnel
+brew "wireguard-tools"
+# Linter for YAML files
+brew "yamllint"
+# Blazing fast terminal file manager written in Rust, based on async I/O
+brew "yazi"
+# Process YAML, JSON, XML, CSV and properties documents from the CLI
+brew "yq"
+# Shell extension to navigate your filesystem faster
+brew "zoxide"
+# UNIX shell (command interpreter)
+brew "zsh"
+# Fish-like fast/unobtrusive autosuggestions for zsh
+brew "zsh-autosuggestions"
+# Fish shell like syntax highlighting for zsh
+brew "zsh-syntax-highlighting"
+# AeroSpace is an i3-like tiling window manager for macOS
+cask "nikitabobko/tap/aerospace"
+# Anthropic's official Claude AI desktop app
+cask "claude"
+# Free app that makes your Internet safer
+cask "cloudflare-warp"
+cask "font-barlow"
+cask "font-cabin"
+cask "font-cantarell"
+cask "font-cardo"
+cask "font-catamaran"
+cask "font-cormorant-garamond"
+cask "font-crimson-text"
+cask "font-dejavu"
+cask "font-dm-sans"
+cask "font-dm-serif-display"
+cask "font-dosis"
+cask "font-eb-garamond"
+cask "font-exo-2"
+cask "font-fira-code"
+cask "font-fira-sans"
+cask "font-go-mono-nerd-font"
+cask "font-hack-nerd-font"
+cask "font-heebo"
+cask "font-ibm-plex-mono"
+cask "font-ibm-plex-sans"
+cask "font-ibm-plex-serif"
+cask "font-inconsolata"
+cask "font-inter"
+cask "font-jetbrains-mono-nerd-font"
+cask "font-josefin-sans"
+cask "font-karla"
+cask "font-lato"
+cask "font-liberation"
+cask "font-merriweather"
+cask "font-montserrat"
+cask "font-mulish"
+cask "font-noto-sans"
+cask "font-noto-sans-mono"
+cask "font-noto-serif"
+cask "font-nunito"
+cask "font-open-sans"
+cask "font-oswald"
+cask "font-outfit"
+cask "font-playfair-display"
+cask "font-poppins"
+cask "font-pt-mono"
+cask "font-pt-sans"
+cask "font-pt-serif"
+cask "font-quicksand"
+cask "font-raleway"
+cask "font-roboto"
+cask "font-roboto-mono"
+cask "font-roboto-slab"
+cask "font-source-code-pro"
+cask "font-source-sans-3"
+cask "font-source-serif-4"
+cask "font-titillium-web"
+cask "font-ubuntu"
+cask "font-ubuntu-mono"
+cask "font-work-sans"
+cask "font-zilla-slab"
+# Set of tools to manage resources and applications hosted on Google Cloud
+cask "gcloud-cli"
+cask "gifcapture"
+# Terminal emulator as alternative to Apple's Terminal app
+cask "iterm2"
+# Open-source screen recorder built with web technology
+cask "kap"
+# Keyboard customiser
+cask "karabiner-elements"
+# Navigator for your Kubernetes clusters right in your pocket
+cask "kubenav"
+# Reverse proxy, secure introspectable tunnels to localhost
+cask "ngrok"
+# Kubernetes and container management on the desktop
+cask "rancher"
+# Pluggable Terraform linter
+cask "terraform-linters/tap/tflint"
+# Open-source code editor
+cask "visual-studio-code"
+# GPU-accelerated cross-platform terminal emulator and multiplexer
+cask "wezterm"
+vscode "4ops.terraform"
+vscode "alefragnani.project-manager"
+vscode "amazonwebservices.amazon-q-vscode"
+vscode "ampersand.yaml-generator-ampersand"
+vscode "anthropic.claude-code"
+vscode "asvetliakov.vscode-neovim"
+vscode "atomiks.moonlight"
+vscode "bradlc.vscode-tailwindcss"
+vscode "burkeholland.simple-react-snippets"
+vscode "chris-noring.node-snippets"
+vscode "christian-kohler.npm-intellisense"
+vscode "codeium.codeium"
+vscode "codezombiech.gitignore"
+vscode "dangoweb.synthwave-2077"
+vscode "docsmsft.docs-yaml"
+vscode "docter60.vscode-terminal-for-ubuntu"
+vscode "esbenp.prettier-vscode"
+vscode "fabiospampinato.vscode-monokai-night"
+vscode "file-icons.file-icons"
+vscode "fincity.rest-api-tester"
+vscode "foxundermoon.shell-format"
+vscode "github.copilot"
+vscode "github.copilot-chat"
+vscode "github.github-vscode-theme"
+vscode "github.vscode-pull-request-github"
+vscode "haack.warp-companion"
+vscode "humao.rest-client"
+vscode "idered.npm"
+vscode "ipedrazas.kubernetes-snippets"
+vscode "jasonnutter.search-node-modules"
+vscode "jwsandeman.cyberpunk2077-theme"
+vscode "linjun.kafka-support"
+vscode "mads-hartmann.bash-ide-vscode"
+vscode "mathematic.vscode-latex"
+vscode "mathworks.language-matlab"
+vscode "mccarter.start-git-bash"
+vscode "mechatroner.rainbow-csv"
+vscode "mhutchie.git-graph"
+vscode "mongodb.mongodb-vscode"
+vscode "ms-azuretools.vscode-containers"
+vscode "ms-azuretools.vscode-docker"
+vscode "ms-edgedevtools.vscode-edge-devtools"
+vscode "ms-kubernetes-tools.vscode-kubernetes-tools"
+vscode "ms-vscode-remote.remote-containers"
+vscode "ms-vscode.makefile-tools"
+vscode "ms-vscode.powershell"
+vscode "ms-vscode.remote-explorer"
+vscode "ms-vscode.remote-repositories"
+vscode "ms-vscode.remote-server"
+vscode "ms-vscode.vscode-speech"
+vscode "ms-vsliveshare.vsliveshare"
+vscode "msjsdiag.vscode-react-native"
+vscode "natizyskunk.sftp"
+vscode "owenfarrell.vscode-vault"
+vscode "pascalreitermann93.vscode-yaml-sort"
+vscode "pawelborkar.jellyfish"
+vscode "percy.vscode-numpy-viewer"
+vscode "pkief.material-icon-theme"
+vscode "redhat.fabric8-analytics"
+vscode "redhat.vscode-yaml"
+vscode "remisa.shellman"
+vscode "ritwickdey.liveserver"
+vscode "robbowen.synthwave-vscode"
+vscode "rpinski.shebang-snippets"
+vscode "rvest.vs-code-prettier-eslint"
+vscode "sdras.night-owl"
+vscode "suntobright.vscode-sftp"
+vscode "technosophos.vscode-helm"
+vscode "technosophos.vscode-make"
+vscode "thiagolciobittencourt.ubuntuvscode"
+vscode "threadheap.serverless-ide-vscode"
+vscode "timonwong.shellcheck"
+vscode "tomblind.scm-buttons-vscode"
+vscode "tonybaloney.vscode-pets"
+vscode "vinirossa.vscode-gitandgithub-pack"
+vscode "webrender.synthwave-x-fluoromachine"
+vscode "wscats.eno"
+vscode "zhuangtongfa.material-theme"
+vscode "ziyasal.vscode-open-in-github"
+vscode "zxh404.vscode-proto3"
+go "cmd/go"
+go "cmd/gofmt"
+krew "access-matrix"
+krew "df-pv"
+krew "krew"
+krew "neat"
+krew "resource-capacity"
+krew "tree"
+krew "view-secret"
+npm "@google/gemini-cli"
+npm "@mermaid-js/mermaid-cli"
+npm "corepack"
+npm "neovim"
+npm "to"
+npm "update"
