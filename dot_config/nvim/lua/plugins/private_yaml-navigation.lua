@@ -10,13 +10,11 @@ return {
     ft = { "yaml", "yml" },
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
-      "nvim-telescope/telescope.nvim",
     },
     keys = {
       { "<leader>yy", "<cmd>YAMLView<cr>", desc = "YAML: View path" },
       { "<leader>yY", "<cmd>YAMLYank<cr>", desc = "YAML: Yank path" },
       { "<leader>yq", "<cmd>YAMLQuickfix<cr>", desc = "YAML: Quickfix keys" },
-      { "<leader>yt", "<cmd>YAMLTelescope<cr>", desc = "YAML: Telescope keys" },
     },
     config = function()
       require("yaml_nvim").setup({
