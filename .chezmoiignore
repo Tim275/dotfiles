@@ -31,3 +31,6 @@ CHEATSHEET.md
 **/*credential*
 **/*kubeconfig*
 **/kubeconfig*
+
+assets
+assets/**

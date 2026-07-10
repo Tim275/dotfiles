@@ -2,6 +2,10 @@
 
 Personal dotfiles for macOS & Linux, managed with [chezmoi](https://chezmoi.io).
 
+## My Neovim Config
+
+![neovim](assets/preview.png)
+
 ## Install
 
 ```sh
