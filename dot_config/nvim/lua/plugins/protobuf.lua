@@ -24,10 +24,10 @@ return {
   },
   {
     "mfussenegger/nvim-lint",
-    opts = {
-      linters_by_ft = {
-        proto = { "buf_lint" },
-      },
-    },
+    opts = function(_, opts)
+      opts.linters_by_ft = opts.linters_by_ft or {}
+      opts.linters_by_ft.proto = { "buf_lint" }
+      opts.linters_by_ft.go = {} -- golangci-lint v2 macht Fehler; gopls + CI reichen
+    end,
   },
 }
