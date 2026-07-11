@@ -23,3 +23,12 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost" }, {
     if ok then lint.try_lint("actionlint") end
   end,
 })
+
+-- YAML/JSON-Keys traditionell rot (Override auf jedem Theme)
+local function red_keys()
+  for _, g in ipairs({ "@property", "@property.yaml", "@property.json", "@field", "@label.json" }) do
+    vim.api.nvim_set_hl(0, g, { fg = "#ff6e5e" })
+  end
+end
+vim.api.nvim_create_autocmd("ColorScheme", { callback = red_keys })
+red_keys()
