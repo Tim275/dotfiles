@@ -458,17 +458,17 @@ return {
   config = function(_, opts)
     require("snacks").setup(opts)
 
-    -- Relaxo/Snorlax Dashboard Colors (Sleepy & Cozy)
-    vim.api.nvim_set_hl(0, "SnacksDashboardKey", { fg = "#3B8686" })                   -- Teal (Relaxo body - keys)
-    vim.api.nvim_set_hl(0, "SnacksDashboardDesc", { fg = "#E8D8B8" })                  -- Cream (Relaxo belly - menu text)
-    vim.api.nvim_set_hl(0, "SnacksDashboardIcon", { fg = "#5BA3A3" })                  -- Light Teal (icons)
-    vim.api.nvim_set_hl(0, "SnacksDashboardTitle", { fg = "#F5E6C8" })                 -- Warm Cream (Git Graph, Recent Files, Projects)
-    vim.api.nvim_set_hl(0, "SnacksDashboardHeader", { fg = "#3B8686" })                -- Teal (header)
-    vim.api.nvim_set_hl(0, "SnacksDashboardFooter", { fg = "#5BA3A3" })                -- Light Teal
-    vim.api.nvim_set_hl(0, "SnacksDashboardSpecial", { fg = "#E8D8B8" })               -- Cream
-    vim.api.nvim_set_hl(0, "SnacksDashboardDir", { fg = "#2C4A52" })                   -- Dark Blue (paths)
-    vim.api.nvim_set_hl(0, "SnacksDashboardFile", { fg = "#87CEAB" })                  -- Soft Mint Green (files)
-    vim.api.nvim_set_hl(0, "SnacksDashboardZzz", { fg = "#E8D8B8" })                   -- Cream (Relaxo zzz)
+    -- Relaxo Waldlichtung — dunkelgrün, Pfade/Dateien hell lesbar
+    vim.api.nvim_set_hl(0, "SnacksDashboardKey", { fg = "#5CAF67" })                   -- Forest Green (keys)
+    vim.api.nvim_set_hl(0, "SnacksDashboardDesc", { fg = "#E4E0C8" })                  -- Warm Cream (menu text)
+    vim.api.nvim_set_hl(0, "SnacksDashboardIcon", { fg = "#6BC077" })                  -- Green (icons)
+    vim.api.nvim_set_hl(0, "SnacksDashboardTitle", { fg = "#A7D98A" })                 -- Light Green (titles)
+    vim.api.nvim_set_hl(0, "SnacksDashboardHeader", { fg = "#5CAF67" })                -- Forest Green (header)
+    vim.api.nvim_set_hl(0, "SnacksDashboardFooter", { fg = "#6BC077" })                -- Green (footer)
+    vim.api.nvim_set_hl(0, "SnacksDashboardSpecial", { fg = "#E4E0C8" })               -- Warm Cream
+    vim.api.nvim_set_hl(0, "SnacksDashboardDir", { fg = "#BFD3A0" })                   -- Light Sage — Pfade jetzt gut lesbar
+    vim.api.nvim_set_hl(0, "SnacksDashboardFile", { fg = "#C6DBA6" })                  -- Light Green — Dateien lesbar
+    vim.api.nvim_set_hl(0, "SnacksDashboardZzz", { fg = "#C9E0A0" })                   -- Light Green (Relaxo zzz)
 
     -- Gitignored files: sichtbar aber klar gedimmt
     vim.api.nvim_set_hl(0, "SnacksPickerPathIgnored", { fg = "#4a4a5a", italic = true })
