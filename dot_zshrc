@@ -254,7 +254,6 @@ fv() { nvim "$(find . -type f -not -path '*/.*' | fzf)"; }
 
 # TOOLS
 alias v='nvim'
-alias vim='nvim'
 alias lg='lazygit'
 alias ld='lazydocker'
 alias lk='k9s'
