@@ -25,6 +25,10 @@ eval "$(atuin init zsh)"
 eval "$(direnv hook zsh)"
 eval "$(mise activate zsh)"
 
+# AUTOSUGGESTIONS (completion = Pfade die existieren, nicht nur History)
+ZSH_AUTOSUGGEST_STRATEGY=(atuin history completion)
+ZSH_AUTOSUGGEST_USE_ASYNC=1
+
 # KEYBINDINGS
 bindkey '^w' autosuggest-execute
 bindkey '^e' autosuggest-accept
