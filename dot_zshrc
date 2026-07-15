@@ -18,7 +18,11 @@ zstyle ':completion:*:approximate:*' max-errors 1 numeric
 
 autoload bashcompinit && bashcompinit
 autoload -Uz compinit
-compinit
+if [[ ! -f ~/.zcompdump || -n "$(find ~/.zcompdump -mtime +1 2>/dev/null)" ]]; then
+  compinit
+else
+  compinit -C
+fi
 
 # PATH
 export PATH="/opt/homebrew/bin:$PATH"
@@ -74,11 +78,19 @@ export TALOSCONFIG="$HOME/.kube/talos-config"
 alias kube-oidc='export KUBECONFIG=$HOME/.kube/config-oidc && echo "✓ OIDC (timour@iam.timourhomelab.org)"'
 alias kube-admin='export KUBECONFIG=$HOME/.kube/config && echo "⚠  Admin (cert-based, break-glass only)"'
 
-# Completions
-source <(kubectl completion zsh)
-source <(helm completion zsh 2>/dev/null)
-source <(flux completion zsh 2>/dev/null)
-source <(argocd completion zsh 2>/dev/null)
+# Completions — aus File-Cache, regeneriert max 1x/Woche (spart ~150ms/Start)
+_comp_cache() {
+  local cache=~/.cache/zsh/completions/_$1
+  if [[ ! -f $cache || -n "$(find "$cache" -mtime +7 2>/dev/null)" ]]; then
+    mkdir -p ~/.cache/zsh/completions
+    command -v "$1" >/dev/null && "$1" completion zsh >| "$cache.tmp" 2>/dev/null && command mv "$cache.tmp" "$cache"
+  fi
+  [[ -f $cache ]] && source "$cache"
+}
+_comp_cache kubectl
+_comp_cache helm
+_comp_cache flux
+_comp_cache argocd
 compdef k=kubectl
 
 # Kubecolor wrapper (better kubectl output)
@@ -229,7 +241,7 @@ alias grbi="git rebase -i"
 alias gm="git merge"
 
 # DOCKER ALIASES
-docker context use rancher-desktop >/dev/null 2>&1
+( docker context use rancher-desktop >/dev/null 2>&1 & )
 
 alias d="docker"
 alias dco="docker compose"
