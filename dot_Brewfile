@@ -258,6 +258,18 @@ brew "zsh"
 brew "zsh-autosuggestions"
 # Fish shell like syntax highlighting for zsh
 brew "zsh-syntax-highlighting"
+# Multi-shell multi-command argument completer
+brew "carapace"
+# Very fast implementation of tldr in Rust
+brew "tealdeer"
+# More intuitive version of du in rust
+brew "dust"
+# Disk Usage/Free Utility - a better 'df' alternative
+brew "duf"
+# Modern replacement for ps written in Rust
+brew "procs"
+# Zstandard is a real-time compression algorithm
+brew "zstd"
 # AeroSpace is an i3-like tiling window manager for macOS
 cask "nikitabobko/tap/aerospace"
 # Anthropic's official Claude AI desktop app

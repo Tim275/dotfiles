@@ -1,7 +1,21 @@
 
-# COMPLETION (must be early)
+# COMPLETION (must be early — styles BEFORE compinit)
 setopt prompt_subst
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
+zstyle ':completion:*' matcher-list \
+  'm:{a-zA-Z}={A-Za-z}' \
+  'r:|[._-]=* r:|=*' \
+  'l:|=* r:|=*'
+zstyle ':completion:*' menu no
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:descriptions' format '[%d]'
+zstyle ':completion:*:warnings' format '%F{red}no matches%f'
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "$HOME/.cache/zsh/compcache"
+zstyle ':completion:*' completer _complete _match _approximate
+zstyle ':completion:*:approximate:*' max-errors 1 numeric
+
 autoload bashcompinit && bashcompinit
 autoload -Uz compinit
 compinit
@@ -11,6 +25,17 @@ export PATH="/opt/homebrew/bin:$PATH"
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$(go env GOPATH 2>/dev/null)/bin"
+
+# COMPLETION ENGINE — carapace (1000+ CLI specs) → fzf-tab (fuzzy menu + preview)
+export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense'
+zstyle ':completion:*:git:*' group-order 'main commands' 'alias commands'
+source <(carapace _carapace zsh)
+[ -f ~/.config/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh ] && source ~/.config/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always --icons $realpath'
+zstyle ':fzf-tab:complete:*:*' fzf-preview '[[ -d $realpath ]] && eza -1 --color=always --icons $realpath || bat --color=always --style=numbers $realpath 2>/dev/null || cat $realpath'
+zstyle ':fzf-tab:*' switch-group '<' '>'
+zstyle ':fzf-tab:*' fzf-flags --height=60% --bind=tab:accept
+zstyle ':fzf-tab:*' continuous-trigger '/'
 
 # PLUGINS & TOOLS (cached brew prefix for performance)
 BREW_PREFIX="/opt/homebrew"
@@ -24,6 +49,7 @@ eval "$(zoxide init zsh)"
 eval "$(atuin init zsh)"
 eval "$(direnv hook zsh)"
 eval "$(mise activate zsh)"
+eval "$(pay-respects zsh --alias fix)"
 
 # AUTOSUGGESTIONS (completion = Pfade die existieren, nicht nur History)
 ZSH_AUTOSUGGEST_STRATEGY=(atuin history completion)
@@ -255,6 +281,17 @@ cx() { cd "$@" && ls; }
 fcd() { cd "$(find . -type d -not -path '*/.*' | fzf)" && ls; }
 f() { echo "$(find . -type f -not -path '*/.*' | fzf)" | pbcopy; }
 fv() { nvim "$(find . -type f -not -path '*/.*' | fzf)"; }
+
+# YAZI (cd-on-quit: 'y' öffnet, beim Beenden springst du wo du warst)
+y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+alias md='glow'
 
 # TOOLS
 alias v='nvim'

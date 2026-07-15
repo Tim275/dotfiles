@@ -2,6 +2,8 @@
 **/.git/**
 .config/tmux/plugins
 .config/tmux/plugins/**
+.config/zsh/plugins
+.config/zsh/plugins/**
 **/*.db
 **/.DS_Store
 README.md
