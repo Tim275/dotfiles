@@ -40,11 +40,11 @@ zstyle ':fzf-tab:*' continuous-trigger '/'
 # PLUGINS & TOOLS (cached brew prefix for performance)
 BREW_PREFIX="/opt/homebrew"
 source $BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 eval "$(starship init zsh)"
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
+source <(fzf --zsh)
 eval "$(zoxide init zsh)"
 eval "$(atuin init zsh)"
 eval "$(direnv hook zsh)"
@@ -62,7 +62,6 @@ bindkey '^u' autosuggest-toggle
 bindkey '^L' vi-forward-word
 bindkey '^k' up-line-or-search
 bindkey '^j' down-line-or-search
-bindkey jj vi-cmd-mode
 
 # ENVIRONMENT
 export LANG=en_US.UTF-8
@@ -326,7 +325,6 @@ alias tka='tmux kill-server'
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND='fd --type d --hidden --follow'
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # HELPER FUNCTIONS
 # Quick kubectl edit
@@ -407,3 +405,6 @@ if [ -f "/Users/timour/.config/lean-ctx/shell-hook.zsh" ]; then
 . "/Users/timour/.config/lean-ctx/shell-hook.zsh"
 fi
 # lean-ctx shell hook — end
+
+# syntax-highlighting als LETZTES (wrappt alle ZLE-widgets, Plugin-Doku-Pflicht)
+source $BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
