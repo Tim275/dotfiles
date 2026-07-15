@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# tmux-Layout: nvim | k9s | claude | shell
+set -euo pipefail
+SESSION="${1:-homelab}"
+REPO="$HOME/Desktop/kubecraft/mealie/homelabtm/taloshomelab/talos-homelab-scratch"
+
+if ! tmux has-session -t "=$SESSION" 2>/dev/null; then
+  tmux new-session -d -s "$SESSION" -c "$REPO" -n editor
+  tmux send-keys  -t "=$SESSION:editor" 'nvim .' C-m
+  tmux new-window -t "=$SESSION" -c "$REPO" -n k9s
+  tmux send-keys  -t "=$SESSION:k9s" 'k9s' C-m
+  tmux new-window -t "=$SESSION" -c "$REPO" -n claude
+  tmux send-keys  -t "=$SESSION:claude" 'claude' C-m
+  tmux new-window -t "=$SESSION" -c "$REPO" -n shell
+  tmux select-window -t "=$SESSION:editor"
+fi
+
+if [ -n "${TMUX:-}" ]; then
+  tmux switch-client -t "=$SESSION"
+else
+  tmux attach -t "=$SESSION"
+fi
