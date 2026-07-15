@@ -56,9 +56,11 @@ ZSH_AUTOSUGGEST_STRATEGY=(atuin history completion)
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 
 # KEYBINDINGS
+# Shell ist im vi-Modus (zsh macht das automatisch weil EDITOR=nvim).
 # Nur ^E accept — Vorschlag annehmen, Enter führt aus (bewusster Zwei-Schritt).
-# ^W/^U/^K/^J/^L bleiben zsh-Standard (Wort löschen, Zeile löschen, clear etc.)
+# ^W/^U/^L bleiben Standard (Wort löschen, Zeile löschen, clear screen).
 bindkey '^e' autosuggest-accept
+bindkey jj vi-cmd-mode
 
 # ENVIRONMENT
 export LANG=en_US.UTF-8
