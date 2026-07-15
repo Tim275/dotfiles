@@ -56,12 +56,9 @@ ZSH_AUTOSUGGEST_STRATEGY=(atuin history completion)
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 
 # KEYBINDINGS
-bindkey '^w' autosuggest-execute
+# Nur ^E accept — Vorschlag annehmen, Enter führt aus (bewusster Zwei-Schritt).
+# ^W/^U/^K/^J/^L bleiben zsh-Standard (Wort löschen, Zeile löschen, clear etc.)
 bindkey '^e' autosuggest-accept
-bindkey '^u' autosuggest-toggle
-bindkey '^L' vi-forward-word
-bindkey '^k' up-line-or-search
-bindkey '^j' down-line-or-search
 
 # ENVIRONMENT
 export LANG=en_US.UTF-8
@@ -173,7 +170,6 @@ alias tff="terraform fmt -recursive"
 alias tfw="terraform workspace"
 
 # OpenTofu (drop-in replacement)
-alias tofu="tofu"
 alias tofui="tofu init"
 alias tofup="tofu plan"
 alias tofua="tofu apply"

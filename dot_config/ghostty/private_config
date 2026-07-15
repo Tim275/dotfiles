@@ -59,7 +59,9 @@ background-blur-radius = 20
 
 # Behavior
 mouse-hide-while-typing = true
-macos-option-as-alt = false
+# left = linke Option ist Alt (tmux/shell M-binds), rechte Option bleibt
+# Sonderzeichen (@ € [ ] { } | ~) — funktioniert so auf DE- UND US-Layout
+macos-option-as-alt = left
 confirm-close-surface = false
 copy-on-select = clipboard
 clipboard-read = allow
