@@ -423,7 +423,6 @@ return {
     { "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File" },
     { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
     { "<leader>bD", function() Snacks.bufdelete.all() end, desc = "Delete All Buffers" },
-    { "<leader>t", function() Snacks.terminal() end, desc = "Terminal" },
     { "<leader>z", function() Snacks.zen() end, desc = "Toggle Zen Mode" },
   },
 
