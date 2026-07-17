@@ -9,6 +9,7 @@ tap "int128/kubelogin"
 tap "minio/stable"
 tap "morantron/tmux-fingers"
 tap "nikitabobko/tap"
+tap "robusta-dev/krr"
 tap "siderolabs/tap"
 tap "stripe/stripe-cli"
 tap "supabase/tap"
@@ -268,6 +269,20 @@ brew "dust"
 brew "duf"
 # Modern replacement for ps written in Rust
 brew "procs"
+# Semantic YAML diff
+brew "dyff"
+# Validate Kubernetes manifests against schemas
+brew "kubeconform"
+# Prometheus rule linter
+brew "pint"
+# Find unused Kubernetes resources
+brew "kor"
+# Detect deprecated Kubernetes APIs
+brew "pluto"
+# Log highlighter
+brew "tailspin"
+# Kubernetes resource recommendations from Prometheus
+brew "robusta-dev/krr/krr"
 # Docker image layer explorer
 brew "dive"
 # Zstandard is a real-time compression algorithm
@@ -438,10 +453,12 @@ vscode "zxh404.vscode-proto3"
 go "cmd/go"
 go "cmd/gofmt"
 krew "access-matrix"
+krew "cnpg"
 krew "df-pv"
 krew "krew"
 krew "neat"
 krew "resource-capacity"
+krew "rook-ceph"
 krew "tree"
 krew "view-secret"
 npm "@google/gemini-cli"

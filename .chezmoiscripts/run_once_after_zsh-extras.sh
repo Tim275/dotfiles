@@ -19,3 +19,5 @@ if ! command -v pay-respects >/dev/null; then
 fi
 
 command -v gh >/dev/null && ! gh extension list 2>/dev/null | grep -q gh-dash && gh extension install dlvhdr/gh-dash || true
+command -v gh >/dev/null && ! gh extension list 2>/dev/null | grep -q gh-poi && gh extension install seachicken/gh-poi || true
+command -v gh >/dev/null && ! gh extension list 2>/dev/null | grep -q gh-notify && gh extension install meiji163/gh-notify || true
