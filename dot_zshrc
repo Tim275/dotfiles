@@ -421,3 +421,4 @@ source $BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Neovim-Guide: Quelle editieren -> PDF neu bauen (Quelle: ~/Desktop/Neovim/anleitung-quelle-v2.html)
 alias guide-render='"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --disable-gpu --no-pdf-header-footer --print-to-pdf="$HOME/Desktop/Neovim-Anleitung.pdf" "file://$HOME/Desktop/Neovim/anleitung-quelle-v2.html" 2>/dev/null && open ~/Desktop/Neovim-Anleitung.pdf'
+alias ghd='gh dash'

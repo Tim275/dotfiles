@@ -17,3 +17,5 @@ if ! command -v pay-respects >/dev/null; then
   install -m 755 "$tmp/pay-respects" "$tmp/_pay-respects-module-100-runtime-rules" "$HOME/.local/bin/"
   rm -rf "$tmp"
 fi
+
+command -v gh >/dev/null && ! gh extension list 2>/dev/null | grep -q gh-dash && gh extension install dlvhdr/gh-dash || true
