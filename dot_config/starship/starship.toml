@@ -1,0 +1,130 @@
+# ══════════════════════════════════════════════════════════════════════════════
+# STARSHIP PROMPT - DevOps Gigachad Edition
+# ══════════════════════════════════════════════════════════════════════════════
+
+add_newline = false
+command_timeout = 1000
+palette = "relaxo"
+
+# Minimal left prompt
+format = """$directory$character"""
+
+# Everything else on the right
+right_format = """$os$git_branch$git_status$kubernetes$terraform$aws$golang$python$docker_context$cmd_duration"""
+
+[os]
+disabled = false
+format = '[$symbol]($style) '
+style = 'bold white'
+
+[os.symbols]
+Macos = ""
+Linux = ""
+Ubuntu = ""
+
+[character]
+vicmd_symbol = '[NORMAL ❯](bold green)'
+success_symbol = '[➜](bold cyan)'
+error_symbol = '[➜](bold red)'
+
+[directory]
+truncation_length = 3
+truncate_to_repo = true
+format = '[$path]($style)[$read_only]($read_only_style) '
+style = 'bold cyan'
+
+[directory.substitutions]
+'~/Desktop/kubecraft' = ' kubecraft'
+'~/.config/nvim' = ' nvim'
+
+[git_branch]
+format = '[$symbol$branch(:$remote_branch)]($style) '
+symbol = ' '
+style = 'bold purple'
+
+[git_status]
+format = '([$all_status$ahead_behind]($style) )'
+style = 'bold red'
+
+[kubernetes]
+symbol = '☸ '
+disabled = false
+format = '[$symbol$context(\($namespace\))]($style) '
+style = 'bold blue'
+contexts = [
+  { context_pattern = ".*talos.*", style = "bold green", context_alias = "talos", symbol = "🏠 " },
+  { context_pattern = ".*k3s.*", style = "bold yellow", context_alias = "k3s", symbol = "🐄 " },
+  { context_pattern = ".*prod.*", style = "bold red", context_alias = "PROD", symbol = "🔴 " },
+  { context_pattern = ".*staging.*", style = "bold yellow", context_alias = "staging", symbol = "🟡 " },
+]
+
+[terraform]
+format = '[$symbol$workspace]($style) '
+symbol = '󱁢 '
+style = 'bold purple'
+disabled = false
+
+[aws]
+format = '[$symbol($profile)(\($region\))]($style) '
+symbol = ' '
+style = 'bold orange'
+disabled = true
+
+[golang]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold cyan'
+
+[python]
+format = '[$symbol($version)]($style) '
+symbol = ' '
+style = 'bold yellow'
+
+[docker_context]
+format = '[$symbol$context]($style) '
+symbol = ' '
+style = 'bold blue'
+disabled = true
+
+[cmd_duration]
+format = '[$duration]($style) '
+style = 'bold yellow'
+min_time = 2000
+
+[helm]
+format = '[$symbol($version)]($style) '
+symbol = '⎈ '
+style = 'bold white'
+
+# ══════════════════════════════════════════════════════════════════════════════
+# RELAXO COLOR PALETTE - Matches Neovim Dashboard
+# ══════════════════════════════════════════════════════════════════════════════
+[palettes.relaxo]
+# Background (dark)
+bg = "#16181a"
+bg_alt = "#1e2124"
+bg_highlight = "#3c4048"
+
+# Foreground
+fg = "#ffffff"
+fg_dim = "#7b8496"
+comment = "#7b8496"
+
+# Relaxo colors
+teal = "#3B8686"
+cream = "#E8D8B8"
+light_teal = "#5BA3A3"
+mint = "#73B3A3"
+
+# Standard colors
+red = "#ff6e5e"
+green = "#5eff6c"
+yellow = "#f1ff5e"
+blue = "#5ea1ff"
+magenta = "#ff5ef1"
+cyan = "#5ef1ff"
+orange = "#ffbd5e"
+pink = "#ff5ea0"
+purple = "#bd5eff"
+black = "#16181a"
+white = "#ffffff"
