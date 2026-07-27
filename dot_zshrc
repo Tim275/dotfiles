@@ -18,11 +18,18 @@ zstyle ':completion:*:approximate:*' max-errors 1 numeric
 
 autoload bashcompinit && bashcompinit
 autoload -Uz compinit
-if [[ ! -f ~/.zcompdump || -n "$(find ~/.zcompdump -mtime +1 2>/dev/null)" ]]; then
-  compinit
-else
+# Existenz- statt Datums-Check: compinit schreibt .zcompdump nur neu wenn sich
+# der Inhalt aendert, ein mtime-Alter-Check heilt sich dadurch nie selbst.
+# Nach neuen CLI-Tools mit eigener Completion: compinit-refresh (unten) nutzen.
+if [[ -s ~/.zcompdump ]]; then
   compinit -C
+else
+  compinit
 fi
+if [[ -s ~/.zcompdump && ( ! -s ~/.zcompdump.zwc || ~/.zcompdump -nt ~/.zcompdump.zwc ) ]]; then
+  zcompile ~/.zcompdump
+fi
+alias compinit-refresh='rm -f ~/.zcompdump*; exec zsh'
 
 # PATH
 export PATH="/opt/homebrew/bin:$PATH"
@@ -278,7 +285,25 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
-# ls bleibt echtes coreutils-ls (klassische Flags -as/-lh/-lt funktionieren) · eza via e/ll/la/lt
+# ls = hybrid: eza (Icons+bunte Rechte) per Default, faellt automatisch auf
+# echtes coreutils-ls zurueck sobald ein -s-Flag dabei ist (eza -s braucht ein
+# Argument, GNU/BSD -s ist ein bool-Flag -> Konflikt, siehe -as-Bug)
+ls() {
+  local arg has_path=0
+  for arg in "$@"; do
+    if [[ "$arg" == -* && "$arg" != --* && "$arg" == *s* ]]; then
+      command ls "$@"
+      return
+    fi
+    [[ "$arg" != -* ]] && has_path=1
+  done
+  # eza gibt bei 0 Positionsargumenten still leere Ausgabe zurueck (v0.23.4-Bug/Quirk) -> "." erzwingen
+  if (( has_path )); then
+    eza --icons --group-directories-first "$@"
+  else
+    eza --icons --group-directories-first "$@" .
+  fi
+}
 alias e='eza --icons --group-directories-first'
 alias ll='eza -la --icons --group-directories-first'
 alias la='eza -a --icons --group-directories-first'
@@ -420,6 +445,20 @@ fi
 # syntax-highlighting als LETZTES (wrappt alle ZLE-widgets, Plugin-Doku-Pflicht)
 source $BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+# history-substring-search MUSS nach syntax-highlighting geladen werden (wrappt auch ZLE-widgets)
+source $BREW_PREFIX/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+bindkey '^[[A' history-substring-search-up      # Pfeil hoch — Standardtaste, jetzt praefix-bewusst
+bindkey '^[[B' history-substring-search-down    # Pfeil runter
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+
 # Neovim-Guide: Quelle editieren -> PDF neu bauen (Quelle: ~/Desktop/Neovim/anleitung-quelle-v2.html)
 alias guide-render='"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --disable-gpu --no-pdf-header-footer --print-to-pdf="$HOME/Desktop/Neovim-Anleitung.pdf" "file://$HOME/Desktop/Neovim/anleitung-quelle-v2.html" 2>/dev/null && open ~/Desktop/Neovim-Anleitung.pdf'
 alias ghd='gh dash'
+
+# bun completions
+[ -s "/Users/timour/.bun/_bun" ] && source "/Users/timour/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
