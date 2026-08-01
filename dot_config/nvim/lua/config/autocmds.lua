@@ -32,3 +32,21 @@ local function red_keys()
 end
 vim.api.nvim_create_autocmd("ColorScheme", { callback = red_keys })
 red_keys()
+
+-- Binaerdateien (SQLite u.ae.) nie als Buchstabensalat rendern — zeigt nur
+-- einen Hinweis, ruft bewusst KEIN anderes Plugin auf (das brach letztes Mal)
+vim.api.nvim_create_autocmd("BufReadCmd", {
+  pattern = { "*.db", "*.sqlite", "*.sqlite3", "*.db-wal", "*.db-shm" },
+  callback = function(args)
+    vim.bo[args.buf].modifiable = true
+    vim.bo[args.buf].buftype = "nofile"
+    vim.bo[args.buf].swapfile = false
+    vim.api.nvim_buf_set_lines(args.buf, 0, -1, false, {
+      "  Binärdatei: " .. vim.fn.fnamemodify(args.file, ":~"),
+      "",
+      "  nvim zeigt SQLite/Binärinhalt bewusst nicht als Text.",
+      "  Für SQL-Browsing: :DBUI  (dadbod-ui)",
+    })
+    vim.bo[args.buf].modifiable = false
+  end,
+})
