@@ -261,6 +261,8 @@ brew "zsh"
 brew "zsh-autosuggestions"
 # Fish shell like syntax highlighting for zsh
 brew "zsh-syntax-highlighting"
+# .zshrc sourced dieses Paket direkt, war aber nie im Brewfile - fehlte auf frischer Maschine
+brew "zsh-history-substring-search"
 # Multi-shell multi-command argument completer
 brew "carapace"
 # Very fast implementation of tldr in Rust
