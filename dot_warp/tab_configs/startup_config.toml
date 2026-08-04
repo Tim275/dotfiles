@@ -1,0 +1,8 @@
+name = "New tab: timour"
+
+[[panes]]
+id = "main"
+type = "terminal"
+directory = "/Users/timour"
+
+[params]

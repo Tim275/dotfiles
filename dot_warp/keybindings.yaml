@@ -1,0 +1,3 @@
+---
+# Default ist cmd-= — auf DE-Layout liegt = auf Shift+0 und feuert nicht.
+"workspace:increase_font_size": cmd-+
