@@ -217,6 +217,8 @@ brew "socat"
 brew "sops"
 # Non-interactive SSH password auth
 brew "sshpass"
+# Custom macOS statusbar with shell plugin, interaction and graph support
+brew "felixkratz/formulae/sketchybar"
 # Cross-shell prompt for astronauts
 brew "starship"
 # Tail multiple Kubernetes pods & their containers
@@ -335,6 +337,8 @@ cask "font-work-sans"
 cask "font-zilla-slab"
 # Set of tools to manage resources and applications hosted on Google Cloud
 cask "gcloud-cli"
+# GPU-accelerated terminal — Haupt-Terminal, Config liegt in .config/ghostty
+cask "ghostty"
 # Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
 # Open-source screen recorder built with web technology
@@ -349,6 +353,8 @@ cask "rancher"
 cask "terraform-linters/tap/tflint"
 # Open-source code editor
 cask "visual-studio-code"
+# Terminal mit AI-Features — Config liegt in .warp
+cask "warp"
 # GPU-accelerated cross-platform terminal emulator and multiplexer
 cask "wezterm"
 vscode "4ops.terraform"
