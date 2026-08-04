@@ -25,8 +25,7 @@ spacing = "compact"
 [appearance.themes]
 theme = "phenomenon"
 selected_system_themes = {
-  dark = "dark_city",
-  light = { custom = { name = "Coolnight", path = "/Users/timour/.warp/themes/coolnight.yaml" } },
+  dark = "dark_city"
 }
 system_theme = false
 

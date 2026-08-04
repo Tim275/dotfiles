@@ -73,8 +73,9 @@ def check_referenced_files():
         except UnicodeDecodeError:
             continue
         for ref in set(pat.findall(text)):
-            # Laufzeit-Artefakte: nicht im Repo, werden von Skripten erzeugt
-            if any(s in ref for s in ("plugins/", "/plugins", ".local/share", ".cache", ".zcompdump")):
+            # Laufzeit-Artefakte: vom jeweiligen Tool erzeugt, gehoeren nicht ins Repo
+            if any(s in ref for s in ("plugins/", "/plugins", ".local/share", ".cache",
+                                      ".zcompdump", "lean-ctx/")):
                 continue
             if not ref.startswith((".config/", ".local/bin/")):
                 continue
@@ -132,14 +133,13 @@ def check_brewfile_alive():
 
     def alive(item):
         kind, name = item
-        short = name.rsplit("/", 1)[-1]
-        url = f"https://formulae.brew.sh/api/{kind}/{short}.json"
+        if "/" in name:
+            return None  # Tap-Pakete liegen nicht in der core-API, nur brew selbst kennt sie
+        url = f"https://formulae.brew.sh/api/{kind}/{name}.json"
         try:
             with urllib.request.urlopen(url, timeout=30) as r:
                 return None if r.status == 200 else (kind, name, r.status)
         except urllib.error.HTTPError as e:
-            if kind == "formula" and "/" in name:
-                return None  # Tap-Formeln liegen nicht in der core-API
             return (kind, name, e.code)
         except Exception as e:
             return (kind, name, str(e))

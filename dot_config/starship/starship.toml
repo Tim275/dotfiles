@@ -48,7 +48,7 @@ disabled = false
 format = '[$symbol$context(\($namespace\))]($style) '
 style = 'bold blue'
 contexts = [
-  { context_pattern = ".*talos.*", style = "bold green", context_alias = "talos", symbol = "🏠 " },
+  { context_pattern = ".*(talos|homelab).*", style = "bold green", context_alias = "homelab", symbol = "🏠 " },
   { context_pattern = ".*k3s.*", style = "bold yellow", context_alias = "k3s", symbol = "🐄 " },
   { context_pattern = ".*prod.*", style = "bold red", context_alias = "PROD", symbol = "🔴 " },
   { context_pattern = ".*staging.*", style = "bold yellow", context_alias = "staging", symbol = "🟡 " },
