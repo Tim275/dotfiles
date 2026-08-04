@@ -219,6 +219,8 @@ brew "sops"
 brew "sshpass"
 # Custom macOS statusbar with shell plugin, interaction and graph support
 brew "felixkratz/formulae/sketchybar"
+# Context Engineering Layer — .zshrc sourced dessen shell-hook
+brew "yvgude/lean-ctx/lean-ctx"
 # Cross-shell prompt for astronauts
 brew "starship"
 # Tail multiple Kubernetes pods & their containers
