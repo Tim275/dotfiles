@@ -67,7 +67,7 @@ return {
             -- Sleeping Relaxo 😴
             {
               section = "terminal",
-              cmd = "chafa -c full --fg-only --symbols braille --clear --center on --speed 1 -s 55x28 --animate on $HOME/.config/nvim/data/ascii/relaxo6.gif",
+              cmd = "f=$HOME/.config/nvim/lua/plugins/dashboard_img/relaxo6.gif; [ -f \"$f\" ] && chafa -c full --fg-only --symbols braille --clear --center on --speed 1 -s 55x28 --animate on \"$f\" || true",
               height = 28,
               width = 55,
               padding = 1,

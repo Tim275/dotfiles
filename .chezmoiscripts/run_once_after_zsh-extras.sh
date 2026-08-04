@@ -1,4 +1,9 @@
 #!/bin/sh
+# Beim ersten Bootstrap ist brew noch nicht im geerbten PATH — ohne das fehlen hier gh & Co.
+for b in /opt/homebrew/bin/brew /usr/local/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
+  [ -x "$b" ] && eval "$("$b" shellenv)" && break
+done
+
 dir="$HOME/.config/zsh/plugins/fzf-tab"
 if [ ! -d "$dir" ]; then
   git clone --depth 1 https://github.com/Aloxaf/fzf-tab "$dir"
@@ -11,10 +16,15 @@ if ! command -v pay-respects >/dev/null; then
     *) target="x86_64-apple-darwin" ;;
   esac
   tmp=$(mktemp -d)
-  curl -sL "https://github.com/iffse/pay-respects/releases/download/v0.8.8/pay-respects-0.8.8-$target.tar.zst" -o "$tmp/pr.tar.zst"
-  zstd -dq "$tmp/pr.tar.zst" -o "$tmp/pr.tar" && tar -xf "$tmp/pr.tar" -C "$tmp"
-  mkdir -p "$HOME/.local/bin"
-  install -m 755 "$tmp/pay-respects" "$tmp/_pay-respects-module-100-runtime-rules" "$HOME/.local/bin/"
+  url="https://github.com/iffse/pay-respects/releases/download/v0.8.8/pay-respects-0.8.8-$target.tar.zst"
+  # macOS-tar ist libarchive und liest .tar.zst direkt — spart den zstd-Aufruf
+  if curl -fsSL "$url" -o "$tmp/pr.tar.zst" && tar -xf "$tmp/pr.tar.zst" -C "$tmp"; then
+    mkdir -p "$HOME/.local/bin"
+    install -m 755 "$tmp/pay-respects" \
+      "$tmp/_pay-respects-module-100-runtime-rules" "$HOME/.local/bin/"
+  else
+    echo "pay-respects: Download fehlgeschlagen, uebersprungen" >&2
+  fi
   rm -rf "$tmp"
 fi
 
