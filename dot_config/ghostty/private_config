@@ -1,5 +1,5 @@
 # =============================================================================
-# GHOSTTY CONFIG - Cyberdream + Optimized for Dashboard Images
+# GHOSTTY CONFIG - TokyoNight + Optimized for Dashboard Images
 # Inspired by pedrorcruzz
 # =============================================================================
 
@@ -12,37 +12,11 @@ font-size = 12
 font-thicken = true
 adjust-cell-height = 7%
 
-# Cyberdream Theme
-background = 16181a
-foreground = ffffff
-
-# Normal colors
-palette = 0=#16181a
-palette = 1=#ff6e5e
-palette = 2=#5eff6c
-palette = 3=#f1ff5e
-palette = 4=#5ea1ff
-palette = 5=#ff5ef1
-palette = 6=#5ef1ff
-palette = 7=#ffffff
-
-# Bright colors
-palette = 8=#3c4048
-palette = 9=#ff6e5e
-palette = 10=#5eff6c
-palette = 11=#f1ff5e
-palette = 12=#5ea1ff
-palette = 13=#bd5eff
-palette = 14=#5ef1ff
-palette = 15=#ffffff
+# Theme (built-in) — gleiche Farben wie tmux + nvim
+theme = "TokyoNight Night"
 
 # Cursor
-cursor-color = 5ef1ff
 cursor-style = block
-
-# Selection
-selection-background = 3c4048
-selection-foreground = ffffff
 
 # Window - Transparent titlebar wie bei ihm
 window-padding-x = 1

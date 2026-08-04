@@ -1,10 +1,6 @@
-# ══════════════════════════════════════════════════════════════════════════════
-# STARSHIP PROMPT - DevOps Gigachad Edition
-# ══════════════════════════════════════════════════════════════════════════════
-
 add_newline = false
 command_timeout = 1000
-palette = "relaxo"
+palette = "tokyonight"
 
 # Minimal left prompt
 format = """$directory$character"""
@@ -70,13 +66,14 @@ symbol = ' '
 style = 'bold orange'
 disabled = true
 
+# nur $symbol, kein $version — spart den go-/python-Aufruf pro Prompt
 [golang]
-format = '[$symbol($version)]($style) '
+format = '[$symbol]($style) '
 symbol = ' '
 style = 'bold cyan'
 
 [python]
-format = '[$symbol($version)]($style) '
+format = '[$symbol]($style) '
 symbol = ' '
 style = 'bold yellow'
 
@@ -91,40 +88,13 @@ format = '[$duration]($style) '
 style = 'bold yellow'
 min_time = 2000
 
-[helm]
-format = '[$symbol($version)]($style) '
-symbol = '⎈ '
-style = 'bold white'
-
-# ══════════════════════════════════════════════════════════════════════════════
-# RELAXO COLOR PALETTE - Matches Neovim Dashboard
-# ══════════════════════════════════════════════════════════════════════════════
-[palettes.relaxo]
-# Background (dark)
-bg = "#16181a"
-bg_alt = "#1e2124"
-bg_highlight = "#3c4048"
-
-# Foreground
-fg = "#ffffff"
-fg_dim = "#7b8496"
-comment = "#7b8496"
-
-# Relaxo colors
-teal = "#3B8686"
-cream = "#E8D8B8"
-light_teal = "#5BA3A3"
-mint = "#73B3A3"
-
-# Standard colors
-red = "#ff6e5e"
-green = "#5eff6c"
-yellow = "#f1ff5e"
-blue = "#5ea1ff"
-magenta = "#ff5ef1"
-cyan = "#5ef1ff"
-orange = "#ffbd5e"
-pink = "#ff5ea0"
-purple = "#bd5eff"
-black = "#16181a"
-white = "#ffffff"
+# tokyonight-night — gleiche Werte wie tmux + nvim
+[palettes.tokyonight]
+red = "#f7768e"
+green = "#9ece6a"
+yellow = "#e0af68"
+blue = "#7aa2f7"
+purple = "#bb9af7"
+cyan = "#7dcfff"
+white = "#c0caf5"
+orange = "#ff9e64"
