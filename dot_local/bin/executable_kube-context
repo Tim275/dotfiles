@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# ══════════════════════════════════════════════════════════════════════════════
+# KUBE CONTEXT SWITCHER - FZF powered
+# ══════════════════════════════════════════════════════════════════════════════
+
+if ! command -v kubectl &>/dev/null; then
+    echo "kubectl not found"
+    exit 1
+fi
+
+selected=$(kubectl config get-contexts -o name | fzf \
+    --height 40% \
+    --layout reverse \
+    --border \
+    --prompt "☸ " \
+    --header "Select Kubernetes Context" \
+    --preview 'kubectl config view -o jsonpath="{.contexts[?(@.name==\"{}\")].context}" | jq -r "." 2>/dev/null || echo "Context: {}"')
+
+if [[ -n $selected ]]; then
+    kubectl config use-context "$selected"
+    echo "✅ Switched to: $selected"
+
+    # Show cluster info
+    echo ""
+    kubectl cluster-info 2>/dev/null | head -2
+fi

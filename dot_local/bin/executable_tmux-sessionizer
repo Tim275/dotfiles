@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+# ══════════════════════════════════════════════════════════════════════════════
+# TMUX SESSIONIZER - ThePrimeagen Style
+# Quick project switching with fuzzy find
+# ══════════════════════════════════════════════════════════════════════════════
+
+# Project directories to search
+SEARCH_DIRS=(
+    ~/Desktop/kubecraft
+    ~/Desktop
+    ~/dotfiles
+    ~/.config
+)
+
+# Build find command for existing directories
+find_cmd="find"
+for dir in "${SEARCH_DIRS[@]}"; do
+    if [[ -d "$dir" ]]; then
+        find_cmd+=" $dir"
+    fi
+done
+find_cmd+=" -mindepth 1 -maxdepth 1 -type d 2>/dev/null"
+
+if [[ $# -eq 1 ]]; then
+    selected=$1
+else
+    selected=$(eval "$find_cmd" | fzf \
+        --height 40% \
+        --layout reverse \
+        --border \
+        --prompt "  " \
+        --header "Select Project" \
+        --preview 'eza --tree --level=2 --icons --color=always {} 2>/dev/null || ls -la {}')
+fi
+
+if [[ -z $selected ]]; then
+    exit 0
+fi
+
+selected_name=$(basename "$selected" | tr . _)
+tmux_running=$(pgrep tmux)
+
+# If not in tmux and tmux is not running
+if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+    tmux new-session -s "$selected_name" -c "$selected"
+    exit 0
+fi
+
+# If session doesn't exist, create it
+if ! tmux has-session -t="$selected_name" 2>/dev/null; then
+    tmux new-session -ds "$selected_name" -c "$selected"
+fi
+
+# Switch to the session
+if [[ -z $TMUX ]]; then
+    tmux attach-session -t "$selected_name"
+else
+    tmux switch-client -t "$selected_name"
+fi

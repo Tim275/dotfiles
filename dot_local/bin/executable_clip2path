@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Paste clipboard content - if it's an image, save it and paste the path
+set -e
+
+TMPDIR="${TMPDIR:-/tmp}"
+IMGFILE="${TMPDIR}/clipboard_$(date +%s).png"
+
+# Try to paste image from clipboard
+if pngpaste "$IMGFILE" 2>/dev/null; then
+    # Image was in clipboard, output the path
+    printf '%s' "$IMGFILE"
+else
+    # No image, paste text normally
+    pbpaste
+fi

@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+# ══════════════════════════════════════════════════════════════════════════════
+# TMUX CHEAT SHEET - Quick reference via cht.sh
+# Usage: tmux-cht (then select language and query)
+# ══════════════════════════════════════════════════════════════════════════════
+
+languages=(
+    golang
+    python
+    bash
+    terraform
+    kubernetes
+    docker
+    ansible
+    lua
+    javascript
+    typescript
+    rust
+    sql
+    yaml
+    json
+    helm
+)
+
+commands=(
+    kubectl
+    docker
+    git
+    helm
+    terraform
+    ansible
+    flux
+    argocd
+    talosctl
+    k9s
+    jq
+    yq
+    curl
+    sed
+    awk
+    find
+    grep
+    tmux
+    nvim
+)
+
+selected=$(printf "%s\n" "${languages[@]}" "${commands[@]}" | fzf \
+    --height 40% \
+    --layout reverse \
+    --border \
+    --prompt " cht.sh/ " \
+    --header "Select topic")
+
+if [[ -z $selected ]]; then
+    exit 0
+fi
+
+read -p "Query: " query
+
+if printf "%s\n" "${languages[@]}" | grep -qx "$selected"; then
+    # It's a language - use cht.sh/language/query format
+    query=$(echo "$query" | tr ' ' '+')
+    tmux neww bash -c "curl -s cht.sh/$selected/$query | less -R"
+else
+    # It's a command - use cht.sh/command~query format
+    query=$(echo "$query" | tr ' ' '+')
+    tmux neww bash -c "curl -s cht.sh/$selected~$query | less -R"
+fi
