@@ -35,7 +35,7 @@ style = 'bold cyan'
 
 [git_branch]
 format = '[$symbol$branch(:$remote_branch)]($style) '
-symbol = ' '
+symbol = "\ue725 "
 style = 'bold purple'
 
 [git_status]
@@ -55,13 +55,13 @@ style = 'bold red'
 
 [jobs]
 format = '[$symbol$number]($style) '
-symbol = ' '
+symbol = "\uf085 "
 style = 'bold blue'
 
 [direnv]
 disabled = false
 format = '[$symbol]($style) '
-symbol = ' '
+symbol = "\uf0ad "
 style = 'bold yellow'
 
 [helm]
@@ -89,59 +89,59 @@ disabled = false
 
 [aws]
 format = '[$symbol($profile)(\($region\))]($style) '
-symbol = ' '
+symbol = "\uf270 "
 style = 'bold orange'
 disabled = true
 
 # nur $symbol, kein $version — spart den go-/python-Aufruf pro Prompt
 [golang]
 format = '[$symbol]($style) '
-symbol = ' '
+symbol = "\ue627 "
 style = 'bold cyan'
 
 [python]
 format = '[$symbol]($style) '
-symbol = ' '
+symbol = "\ue606 "
 style = 'bold yellow'
 
 [rust]
 format = '[$symbol]($style) '
-symbol = ' '
+symbol = "\ue7a8 "
 style = 'bold red'
 
 [nodejs]
 format = '[$symbol]($style) '
-symbol = ' '
+symbol = "\ue718 "
 style = 'bold green'
 
 [java]
 format = '[$symbol]($style) '
-symbol = ' '
+symbol = "\ue738 "
 style = 'bold red'
 
 [lua]
 format = '[$symbol]($style) '
-symbol = ' '
+symbol = "\ue620 "
 style = 'bold blue'
 
 [ruby]
 format = '[$symbol]($style) '
-symbol = ' '
+symbol = "\ue739 "
 style = 'bold red'
 
 [php]
 format = '[$symbol]($style) '
-symbol = ' '
+symbol = "\ue73d "
 style = 'bold purple'
 
 [c]
 format = '[$symbol]($style) '
-symbol = ' '
+symbol = "\ue61e "
 style = 'bold blue'
 
 [docker_context]
 format = '[$symbol$context]($style) '
-symbol = ' '
+symbol = "\uf308 "
 style = 'bold blue'
 disabled = true
 
