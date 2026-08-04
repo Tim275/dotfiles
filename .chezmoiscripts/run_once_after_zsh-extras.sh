@@ -28,6 +28,12 @@ if ! command -v pay-respects >/dev/null; then
   rm -rf "$tmp"
 fi
 
-command -v gh >/dev/null && ! gh extension list 2>/dev/null | grep -q gh-dash && gh extension install dlvhdr/gh-dash || true
-command -v gh >/dev/null && ! gh extension list 2>/dev/null | grep -q gh-poi && gh extension install seachicken/gh-poi || true
-command -v gh >/dev/null && ! gh extension list 2>/dev/null | grep -q gh-notify && gh extension install meiji163/gh-notify || true
+if command -v gh >/dev/null; then
+  for ext in dlvhdr/gh-dash seachicken/gh-poi meiji163/gh-notify; do
+    name="${ext##*/}"
+    gh extension list 2>/dev/null | grep -q "$name" && continue
+    gh extension install "$ext" || echo "gh extension $name fehlgeschlagen — 'gh auth login' fehlt?" >&2
+  done
+else
+  echo "gh nicht gefunden — Extensions uebersprungen" >&2
+fi

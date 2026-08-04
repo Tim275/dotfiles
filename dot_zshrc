@@ -414,7 +414,7 @@ alias kube-azure="export KUBECONFIG=~/.kube/azure-config && echo '✓ Switched t
 alias kube-home="export KUBECONFIG=~/.kube/config && echo '✓ Switched to Homelab'"
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/timour/.rd/bin:$PATH"
+export PATH="$HOME/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 # Homebrew nach Rancher Desktop — überschreibt RD-Tools (helm v4 → v3)
 export PATH="/opt/homebrew/bin:$PATH"
@@ -437,8 +437,8 @@ alias talos-kubeconfig='talosctl kubeconfig --force --merge=false /tmp/kubeconfi
 # lean-ctx: auto-aliasing aus (brach `_lc: command not found` in Scripts/Subshells)
 export LEAN_CTX_DISABLED=1
 # lean-ctx shell hook — begin
-if [ -f "/Users/timour/.config/lean-ctx/shell-hook.zsh" ]; then
-. "/Users/timour/.config/lean-ctx/shell-hook.zsh"
+if [ -f "$HOME/.config/lean-ctx/shell-hook.zsh" ]; then
+. "$HOME/.config/lean-ctx/shell-hook.zsh"
 fi
 # lean-ctx shell hook — end
 
@@ -457,7 +457,7 @@ alias guide-render='"/Applications/Google Chrome.app/Contents/MacOS/Google Chrom
 alias ghd='gh dash'
 
 # bun completions
-[ -s "/Users/timour/.bun/_bun" ] && source "/Users/timour/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
