@@ -6,7 +6,7 @@ palette = "tokyonight"
 format = """$directory$character"""
 
 # Everything else on the right
-right_format = """$os$git_branch$git_status$kubernetes$terraform$aws$golang$python$docker_context$cmd_duration"""
+right_format = """$status$jobs$os$git_branch$git_state$git_status$kubernetes$helm$terraform$aws$direnv$golang$python$rust$nodejs$java$lua$ruby$php$c$docker_context$cmd_duration"""
 
 [os]
 disabled = false
@@ -42,6 +42,33 @@ style = 'bold purple'
 format = '([$all_status$ahead_behind]($style) )'
 style = 'bold red'
 
+# rebase/merge/cherry-pick laufend — inkl. Fortschritt (3/7)
+[git_state]
+format = '[\($state( $progress_current/$progress_total)\)]($style) '
+style = 'bold yellow'
+
+# Exit-Code des letzten Befehls (127 vs 130 vs 1 unterscheiden)
+[status]
+disabled = false
+format = '[$status]($style) '
+style = 'bold red'
+
+[jobs]
+format = '[$symbol$number]($style) '
+symbol = ' '
+style = 'bold blue'
+
+[direnv]
+disabled = false
+format = '[$symbol]($style) '
+symbol = ' '
+style = 'bold yellow'
+
+[helm]
+format = '[$symbol]($style) '
+symbol = '⎈ '
+style = 'bold cyan'
+
 [kubernetes]
 symbol = '☸ '
 disabled = false
@@ -76,6 +103,41 @@ style = 'bold cyan'
 format = '[$symbol]($style) '
 symbol = ' '
 style = 'bold yellow'
+
+[rust]
+format = '[$symbol]($style) '
+symbol = ' '
+style = 'bold red'
+
+[nodejs]
+format = '[$symbol]($style) '
+symbol = ' '
+style = 'bold green'
+
+[java]
+format = '[$symbol]($style) '
+symbol = ' '
+style = 'bold red'
+
+[lua]
+format = '[$symbol]($style) '
+symbol = ' '
+style = 'bold blue'
+
+[ruby]
+format = '[$symbol]($style) '
+symbol = ' '
+style = 'bold red'
+
+[php]
+format = '[$symbol]($style) '
+symbol = ' '
+style = 'bold purple'
+
+[c]
+format = '[$symbol]($style) '
+symbol = ' '
+style = 'bold blue'
 
 [docker_context]
 format = '[$symbol$context]($style) '
