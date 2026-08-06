@@ -18,7 +18,7 @@ return {
         bash = { "shfmt" },
         zsh = { "shfmt" },
         json = { "jq" },
-        jsonc = { "jq" },
+        jsonc = { "prettier" },
         markdown = { "prettier" },
         go = { "gofumpt", "goimports" },
         python = { "ruff_format", "ruff_fix" },
@@ -28,7 +28,7 @@ return {
       formatters = {
         yamlfmt = {
           command = "yamlfmt",
-          args = { "-formatter", "basic", "-indentless_arrays=true" },
+          args = { "-in", "-formatter", "indentless_arrays=true" },
         },
         shfmt = {
           command = "shfmt",
