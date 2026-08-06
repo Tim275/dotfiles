@@ -17,10 +17,11 @@ theme = "TokyoNight Night"
 
 # Cursor
 cursor-style = block
+cursor-style-blink = false
 
 # Window - Transparent titlebar wie bei ihm
-window-padding-x = 1
-window-padding-y = 1
+window-padding-x = 8
+window-padding-y = 8
 window-padding-balance = true
 window-decoration = true
 macos-titlebar-style = transparent
@@ -28,7 +29,7 @@ macos-titlebar-proxy-icon = hidden
 title = " "
 
 # Background
-background-opacity = 0.95
+background-opacity = 0.88
 background-blur-radius = 20
 
 # Behavior
