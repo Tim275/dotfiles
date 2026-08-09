@@ -3,6 +3,7 @@ local glyph = vim.fn.nr2char
 -- Codepoints statt Literale: PUA-Zeichen ueberleben Copy-Paste/Editoren nicht zuverlaessig
 local cube = glyph(0xF01A6) -- nf-md-cube
 local yml = glyph(0xE6A8) -- nf-seti-yml
+local terraform = glyph(0xE69A) -- nf-seti-terraform
 
 return {
   {
@@ -13,6 +14,8 @@ return {
         tofu = { icon = cube, color = "#e0af68", name = "OpenTofu" },
         yaml = { icon = yml, color = "#f7768e", name = "Yaml" },
         yml = { icon = yml, color = "#f7768e", name = "Yml" },
+        -- devicons hat fuer tfvars nur "fa-file" (generischer Klecks) hinterlegt
+        tfvars = { icon = terraform, color = "#5f43e9", name = "Tfvars" },
       },
     },
   },
@@ -27,6 +30,7 @@ return {
         tofu = { glyph = cube, hl = "MiniIconsYellow" },
         yaml = { glyph = yml, hl = "MiniIconsRed" },
         yml = { glyph = yml, hl = "MiniIconsRed" },
+        tfvars = { glyph = terraform, hl = "MiniIconsPurple" },
       },
     },
   },
