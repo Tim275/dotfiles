@@ -7,7 +7,8 @@ return {
     end,
     opts = {
       extension = {
-        tofu = { glyph = "󱁢", hl = "MiniIconsBlue" },
+        -- Tofu-Wuerfel (nf-md-cube U+F01A6) in OpenTofu-Gelb statt Terraform-Lila
+        tofu = { glyph = "󰆦", hl = "MiniIconsYellow" },
       },
     },
   },
