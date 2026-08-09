@@ -6,7 +6,7 @@
 
 # Project directories to search
 SEARCH_DIRS=(
-    ~/Desktop/kubecraft
+    ~/Projects/kubecraft
     ~/Desktop
     ~/dotfiles
     ~/.config

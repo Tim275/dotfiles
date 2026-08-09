@@ -14,4 +14,4 @@ terraform = "latest"
 [settings]
 idiomatic_version_file = true
 legacy_version_file = true
-trusted_config_paths = ["~/Desktop/kubecraft"]
+trusted_config_paths = ["~/Projects/kubecraft"]

@@ -30,7 +30,7 @@ format = '[$path]($style)[$read_only]($read_only_style) '
 style = 'bold cyan'
 
 [directory.substitutions]
-'~/Desktop/kubecraft' = ' kubecraft'
+'~/Projects/kubecraft' = ' kubecraft'
 '~/.config/nvim' = ' nvim'
 
 [git_branch]

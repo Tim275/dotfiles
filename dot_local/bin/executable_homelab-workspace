@@ -2,7 +2,7 @@
 # tmux-Layout: nvim | k9s | claude | shell
 set -euo pipefail
 SESSION="${1:-homelab}"
-REPO="$HOME/Desktop/kubecraft/mealie/homelabtm/taloshomelab/talos-homelab-scratch"
+REPO="$HOME/Projects/kubecraft/mealie/homelabtm/taloshomelab/talos-homelab-scratch"
 
 if ! tmux has-session -t "=$SESSION" 2>/dev/null; then
   tmux new-session -d -s "$SESSION" -c "$REPO" -n editor
