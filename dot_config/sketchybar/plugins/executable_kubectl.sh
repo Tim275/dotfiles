@@ -5,6 +5,6 @@ if [ "$CONTEXT" = "none" ] || [ -z "$CONTEXT" ]; then
   sketchybar --set $NAME label="N/A"
 else
   # Shorten long context names
-  SHORT=$(echo "$CONTEXT" | cut -c1-12)
+  SHORT=$(echo "$CONTEXT" | sed 's/^admin@//' | cut -c1-16)
   sketchybar --set $NAME label="$SHORT"
 fi
