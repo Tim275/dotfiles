@@ -31,6 +31,9 @@ return {
         yaml = { glyph = yml, hl = "MiniIconsRed" },
         yml = { glyph = yml, hl = "MiniIconsRed" },
         tfvars = { glyph = terraform, hl = "MiniIconsPurple" },
+        -- mini.icons' eigener Default fuer .tf ist md-terraform, devicons nutzt
+        -- seti-terraform - zwei verschiedene Logos je nach UI-Element. Angeglichen.
+        tf = { glyph = terraform, hl = "MiniIconsPurple" },
       },
     },
   },
