@@ -2,9 +2,9 @@ add_newline = true
 command_timeout = 1000
 palette = "tokyonight"
 
-format = """$directory$character"""
+format = """$directory$git_branch$git_state$git_status$character"""
 
-right_format = """$status$jobs$git_branch$git_state$git_status$kubernetes$helm$terraform$aws$direnv$golang$python$rust$nodejs$java$lua$ruby$php$c$docker_context$cmd_duration"""
+right_format = """$status$jobs$azure$kubernetes$helm$terraform$aws$direnv$golang$python$rust$nodejs$java$lua$ruby$php$c$docker_context$cmd_duration"""
 
 [os]
 disabled = true
@@ -42,13 +42,13 @@ style = 'fg:#e0af68'
 ahead = '↑${count}'
 behind = '↓${count}'
 diverged = '↑${ahead_count}↓${behind_count}'
-stashed = '*'
-modified = '!'
-staged = '+'
-untracked = '?'
-deleted = 'x'
-renamed = '»'
-conflicted = '='
+stashed = ''
+modified = '!${count}'
+staged = '+${count}'
+untracked = ''
+deleted = 'x${count}'
+renamed = '»${count}'
+conflicted = '=${count}'
 
 # rebase/merge/cherry-pick laufend — inkl. Fortschritt (3/7)
 [git_state]
@@ -97,10 +97,17 @@ style = 'bold purple'
 disabled = false
 
 [aws]
-format = '[$symbol($profile)(\($region\))]($style) '
+format = '[$symbol$profile(\($region\))]($style) '
 symbol = "\uf270 "
-style = 'bold orange'
+style = 'fg:#ff9e64'
 disabled = true
+
+[azure]
+# nf-md-microsoft-azure, nur symbol - subscription heisst generisch "Azure subscription 1"
+format = '[$symbol]($style) '
+symbol = "\U000F0163 "
+style = 'fg:#7aa2f7'
+disabled = false
 
 # nur $symbol, kein $version — spart den go-/python-Aufruf pro Prompt
 [golang]
