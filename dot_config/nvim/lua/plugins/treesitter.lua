@@ -3,7 +3,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       -- image.nvim/render-markdown warnen sonst bei jedem checkhealth
-      ensure_installed = { "css", "scss", "latex", "typst", "svelte", "vue", "norg" },
+      ensure_installed = { "css", "scss", "latex", "typst", "svelte", "vue" },
     },
   },
   {
