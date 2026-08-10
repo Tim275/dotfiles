@@ -7,19 +7,9 @@ local terraform = glyph(0xE69A) -- nf-seti-terraform
 
 return {
   {
-    -- Seitenleiste (snacks) rendert ueber devicons, nicht mini.icons
-    "nvim-tree/nvim-web-devicons",
-    opts = {
-      override_by_extension = {
-        tofu = { icon = cube, color = "#e0af68", name = "OpenTofu" },
-        yaml = { icon = yml, color = "#f7768e", name = "Yaml" },
-        yml = { icon = yml, color = "#f7768e", name = "Yml" },
-        -- devicons hat fuer tfvars nur "fa-file" (generischer Klecks) hinterlegt
-        tfvars = { icon = terraform, color = "#5f43e9", name = "Tfvars" },
-      },
-    },
-  },
-  {
+    -- mini.icons ist die einzige Quelle. mock_nvim_web_devicons() leitet devicons
+    -- transparent um (snacks.explorer haengt hart an nvim-web-devicons) - vorher
+    -- hatten devicons und mini.icons fuer die meisten Endungen verschiedene Icons.
     "nvim-mini/mini.icons",
     init = function()
       -- .tofu (OpenTofu) = gleiche Pipeline wie .tf: highlighting, terraformls, terraform_fmt
@@ -30,11 +20,15 @@ return {
         tofu = { glyph = cube, hl = "MiniIconsYellow" },
         yaml = { glyph = yml, hl = "MiniIconsRed" },
         yml = { glyph = yml, hl = "MiniIconsRed" },
+        -- devicons hat fuer tfvars nur "fa-file" (generischer Klecks) hinterlegt
         tfvars = { glyph = terraform, hl = "MiniIconsPurple" },
-        -- mini.icons' eigener Default fuer .tf ist md-terraform, devicons nutzt
-        -- seti-terraform - zwei verschiedene Logos je nach UI-Element. Angeglichen.
         tf = { glyph = terraform, hl = "MiniIconsPurple" },
       },
     },
+    config = function(_, opts)
+      require("mini.icons").setup(opts)
+      require("nvim-web-devicons")
+      require("mini.icons").mock_nvim_web_devicons()
+    end,
   },
 }
