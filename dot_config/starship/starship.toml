@@ -1,4 +1,4 @@
-add_newline = false
+add_newline = true
 command_timeout = 1000
 palette = "tokyonight"
 
@@ -36,21 +36,21 @@ style = 'bold cyan'
 [git_branch]
 format = '[$symbol$branch(:$remote_branch)]($style) '
 symbol = "\ue725 "
-style = 'bold purple'
+style = 'fg:#565f89'
 
 [git_status]
 format = '([$all_status$ahead_behind]($style) )'
-style = 'bold red'
-ahead = '↑${count} '
-behind = '↓${count} '
-diverged = '↑${ahead_count}↓${behind_count} '
-stashed = '*${count} '
-modified = '!${count} '
-staged = '+${count} '
-untracked = '?${count} '
-deleted = 'x${count} '
-renamed = '»${count} '
-conflicted = '=${count} '
+style = 'fg:#e0af68'
+ahead = '↑${count}'
+behind = '↓${count}'
+diverged = '↑${ahead_count}↓${behind_count}'
+stashed = '*'
+modified = '!'
+staged = '+'
+untracked = '?'
+deleted = 'x'
+renamed = '»'
+conflicted = '='
 
 # rebase/merge/cherry-pick laufend — inkl. Fortschritt (3/7)
 [git_state]
@@ -84,12 +84,12 @@ style = 'bold cyan'
 symbol = "\U000F10FE "
 disabled = false
 format = '[$symbol$context(\($namespace\))]($style) '
-style = 'bold blue'
+style = 'fg:#565f89'
 contexts = [
-  { context_pattern = ".*(talos|homelab).*", style = "bold green", context_alias = "homelab", symbol = "\U000F10FE " },
-  { context_pattern = ".*k3s.*", style = "bold yellow", context_alias = "k3s", symbol = "\U000F10FE " },
+  { context_pattern = ".*(talos|homelab).*", style = "fg:#9ece6a", context_alias = "homelab", symbol = "\U000F10FE " },
+  { context_pattern = ".*k3s.*", style = "fg:#e0af68", context_alias = "k3s", symbol = "\U000F10FE " },
   { context_pattern = ".*prod.*", style = "bold red", context_alias = "PROD", symbol = "\U000F10FE " },
-  { context_pattern = ".*staging.*", style = "bold yellow", context_alias = "staging", symbol = "\U000F10FE " },
+  { context_pattern = ".*staging.*", style = "fg:#e0af68", context_alias = "staging", symbol = "\U000F10FE " },
 ]
 
 [terraform]
