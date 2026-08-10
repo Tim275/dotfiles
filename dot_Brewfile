@@ -8,7 +8,7 @@ tap "hashicorp/tap"
 tap "int128/kubelogin"
 tap "minio/stable"
 tap "morantron/tmux-fingers"
-# Boehm-GC — Runtime-Dependency fuer tmux-fingers (Crystal-Binary), war installiert aber nie im Brewfile
+# Boehm-GC, runtime-dep von tmux-fingers
 brew "bdw-gc"
 brew "morantron/tmux-fingers/tmux-fingers"
 tap "nikitabobko/tap"
@@ -219,7 +219,7 @@ brew "sops"
 brew "sshpass"
 # Custom macOS statusbar with shell plugin, interaction and graph support
 brew "felixkratz/formulae/sketchybar"
-# Context Engineering Layer — .zshrc sourced dessen shell-hook
+# Context engineering layer
 brew "yvgude/lean-ctx/lean-ctx"
 # Cross-shell prompt for astronauts
 brew "starship"
@@ -263,7 +263,7 @@ brew "zsh"
 brew "zsh-autosuggestions"
 # Fish shell like syntax highlighting for zsh
 brew "zsh-syntax-highlighting"
-# .zshrc sourced dieses Paket direkt, war aber nie im Brewfile - fehlte auf frischer Maschine
+# Zsh port of Fish shell's history search
 brew "zsh-history-substring-search"
 # Multi-shell multi-command argument completer
 brew "carapace"
@@ -323,7 +323,7 @@ cask "font-oswald"
 cask "font-outfit"
 cask "font-playfair-display"
 cask "font-poppins"
-# PT-Fonts via run_onchange_after_install-pt-fonts.sh — Cask-URL gibt 401
+# pt-fonts via script, cask-url gibt 401
 cask "font-quicksand"
 cask "font-raleway"
 cask "font-roboto"
@@ -339,7 +339,7 @@ cask "font-work-sans"
 cask "font-zilla-slab"
 # Set of tools to manage resources and applications hosted on Google Cloud
 cask "gcloud-cli"
-# GPU-accelerated terminal — Haupt-Terminal, Config liegt in .config/ghostty
+# Terminal emulator with platform-native UI and GPU acceleration
 cask "ghostty"
 # Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
@@ -355,7 +355,7 @@ cask "rancher"
 cask "terraform-linters/tap/tflint"
 # Open-source code editor
 cask "visual-studio-code"
-# Terminal mit AI-Features — Config liegt in .warp
+# Rust-based terminal
 cask "warp"
 # GPU-accelerated cross-platform terminal emulator and multiplexer
 cask "wezterm"

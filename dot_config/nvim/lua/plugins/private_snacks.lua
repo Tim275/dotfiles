@@ -264,8 +264,6 @@ return {
           Hint = " ",
           Info = " ",
         },
-        -- "?" auf Ordnern mit nur einer neuen Datei drin nervt mehr als es hilft;
-        -- .gitignore-Dimming (ignored) bleibt unberuehrt
         git = {
           untracked = "",
         },

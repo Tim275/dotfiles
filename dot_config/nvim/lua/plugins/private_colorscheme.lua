@@ -31,10 +31,8 @@ return {
         colors.fg_gutter = "#627E97"
         colors.fg_sidebar = "#B4D0E9"
       end,
-      -- snacks-Explorer: "untracked" (Ordner enthaelt irgendwo was Neues) faerbt
-      -- sonst den ganzen Dateinamen wie NonText/Comment ein - genau wie "ignored".
-      -- Nur .gitignore-Treffer sollen gedimmt aussehen, untracked bleibt normal.
       on_highlights = function(hl)
+        -- untracked nicht dimmen, nur gitignored
         hl.SnacksPickerGitStatusUntracked = { link = "Normal" }
       end,
     },

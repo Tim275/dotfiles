@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # ============================================================================
-# SKETCHYBAR CONFIG - Cyberdream Theme
+# SKETCHYBAR CONFIG - TokyoNight
 # ============================================================================
 
-# Cyberdream Colors
+# TokyoNight Colors
 BACKGROUND=0xff011423
 FOREGROUND=0xffc0caf5
 CYAN=0xff7dcfff

@@ -41,8 +41,6 @@ style = 'bold purple'
 [git_status]
 format = '([$all_status$ahead_behind]($style) )'
 style = 'bold red'
-# nur Zeichen, die JetBrainsMono NF wirklich hat - starships ⇡⇣⇕-Defaults
-# fehlen im Font und rendern per Fallback (sah nie einheitlich aus)
 ahead = '↑${count} '
 behind = '↓${count} '
 diverged = '↑${ahead_count}↓${behind_count} '
@@ -82,7 +80,7 @@ symbol = '⎈ '
 style = 'bold cyan'
 
 [kubernetes]
-# \U000F10FE = nf-md-kubernetes - das ☸ von vorher fehlt in JetBrainsMono NF
+# nf-md-kubernetes
 symbol = "\U000F10FE "
 disabled = false
 format = '[$symbol$context(\($namespace\))]($style) '

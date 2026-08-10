@@ -1,6 +1,5 @@
 #!/bin/bash
-# Ersetzt die Casks font-pt-{sans,serif,mono} — deren Download bei paratype.com
-# gibt 401 und reisst die ganze brew-bundle-Downloadphase mit.
+# pt-fonts von google/fonts, die casks geben 401
 set -eu
 
 [ "$(uname -s)" = "Darwin" ] || exit 0

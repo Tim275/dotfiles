@@ -1,5 +1,5 @@
 #!/bin/sh
-# Beim ersten Bootstrap ist brew noch nicht im geerbten PATH — ohne das fehlt hier tmux.
+# brew beim bootstrap noch nicht im PATH
 for b in /opt/homebrew/bin/brew /usr/local/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
   [ -x "$b" ] && eval "$("$b" shellenv)" && break
 done

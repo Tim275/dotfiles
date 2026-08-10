@@ -1,5 +1,5 @@
 #!/bin/sh
-# Beim ersten Bootstrap ist brew noch nicht im geerbten PATH — ohne das fehlen hier gh & Co.
+# brew beim bootstrap noch nicht im PATH
 for b in /opt/homebrew/bin/brew /usr/local/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
   [ -x "$b" ] && eval "$("$b" shellenv)" && break
 done
@@ -17,7 +17,7 @@ if ! command -v pay-respects >/dev/null; then
   esac
   tmp=$(mktemp -d)
   url="https://github.com/iffse/pay-respects/releases/download/v0.8.8/pay-respects-0.8.8-$target.tar.zst"
-  # macOS-tar ist libarchive und liest .tar.zst direkt — spart den zstd-Aufruf
+  # bsdtar liest .tar.zst direkt
   if curl -fsSL "$url" -o "$tmp/pr.tar.zst" && tar -xf "$tmp/pr.tar.zst" -C "$tmp"; then
     mkdir -p "$HOME/.local/bin"
     install -m 755 "$tmp/pay-respects" \
