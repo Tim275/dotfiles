@@ -5,16 +5,16 @@
 # ============================================================================
 
 # Cyberdream Colors
-BACKGROUND=0xff16181a
-FOREGROUND=0xffffffff
-CYAN=0xff5ef1ff
-GREEN=0xff5eff6c
-YELLOW=0xfff1ff5e
-RED=0xffff6e5e
-MAGENTA=0xffff5ef1
-BLUE=0xff5ea1ff
-GREY=0xff7b8496
-BG_HIGHLIGHT=0xff3c4048
+BACKGROUND=0xff011423
+FOREGROUND=0xffc0caf5
+CYAN=0xff7dcfff
+GREEN=0xff9ece6a
+YELLOW=0xffe0af68
+RED=0xfff7768e
+MAGENTA=0xffbb9af7
+BLUE=0xff7aa2f7
+GREY=0xff565f89
+BG_HIGHLIGHT=0xff143652
 
 # Bar Appearance
 sketchybar --bar \

@@ -23,7 +23,7 @@ intelligent_autosuggestions_enabled = false
 spacing = "compact"
 
 [appearance.themes]
-theme = "phenomenon"
+theme = "tokyo_night"
 selected_system_themes = {
   dark = "dark_city"
 }
