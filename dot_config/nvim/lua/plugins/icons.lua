@@ -18,8 +18,9 @@ return {
     opts = {
       extension = {
         tofu = { glyph = cube, hl = "MiniIconsYellow" },
-        yaml = { glyph = yml, hl = "MiniIconsRed" },
-        yml = { glyph = yml, hl = "MiniIconsRed" },
+        -- blau statt rot: 8 rote yaml-icons in einer liste lesen sich als 8 fehler
+        yaml = { glyph = yml, hl = "MiniIconsBlue" },
+        yml = { glyph = yml, hl = "MiniIconsBlue" },
         -- devicons hat fuer tfvars nur "fa-file" (generischer Klecks) hinterlegt
         tfvars = { glyph = terraform, hl = "MiniIconsPurple" },
         tf = { glyph = terraform, hl = "MiniIconsPurple" },
