@@ -4,6 +4,9 @@
 # SKETCHYBAR CONFIG - TokyoNight
 # ============================================================================
 
+# brew services hat /opt/homebrew/bin nicht im PATH
+export PATH="/opt/homebrew/bin:$PATH"
+
 # TokyoNight Colors
 BACKGROUND=0xff011423
 FOREGROUND=0xffc0caf5
@@ -60,7 +63,7 @@ sketchybar --add item space left \
                  label.color=$FOREGROUND \
                  background.color=$BG_HIGHLIGHT \
                  background.padding_left=8 \
-           --subscribe space space_change
+           --subscribe space space_change aerospace_workspace_change
 
 # Front App
 sketchybar --add item front_app left \
