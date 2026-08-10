@@ -14,6 +14,9 @@ adjust-cell-height = 7%
 
 # Theme (built-in) — gleiche Farben wie tmux + nvim
 theme = "TokyoNight Night"
+# Stock-TokyoNight ist #1a1b26 — nvim faerbt via on_colors auf Navy um,
+# sonst sitzt neben einem nvim-Pane ein anders getoenter Shell-Pane
+background = #011628
 
 # Cursor
 cursor-style = block
