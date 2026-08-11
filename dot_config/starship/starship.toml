@@ -2,7 +2,9 @@ add_newline = true
 command_timeout = 1000
 palette = "tokyonight"
 
-format = """$directory$git_branch$git_state$git_status$character"""
+format = """
+$directory$git_branch$git_state$git_status
+$character"""
 
 right_format = """$status$jobs$azure$kubernetes$helm$terraform$aws$direnv$golang$python$rust$nodejs$java$lua$ruby$php$c$docker_context$cmd_duration"""
 
