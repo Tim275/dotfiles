@@ -39,7 +39,7 @@ style = 'bold cyan'
 [git_branch]
 format = '[$symbol$branch(:$remote_branch)]($style) '
 symbol = "\ue725 "
-style = 'fg:#565f89'
+style = 'fg:#9aa5ce'
 
 [git_status]
 format = '([$all_status$ahead_behind]($style) )'
@@ -87,7 +87,7 @@ style = 'bold cyan'
 symbol = "\U000F10FE "
 disabled = false
 format = '[$symbol$context(\($namespace\))]($style) '
-style = 'fg:#565f89'
+style = 'fg:#9aa5ce'
 contexts = [
   { context_pattern = ".*(talos|homelab).*", style = "fg:#9ece6a", context_alias = "homelab", symbol = "\U000F10FE " },
   { context_pattern = ".*k3s.*", style = "fg:#e0af68", context_alias = "k3s", symbol = "\U000F10FE " },
