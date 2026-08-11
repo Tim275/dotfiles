@@ -33,9 +33,11 @@ require("lazy").setup({
   install = { colorscheme = { "tokyonight", "habamax" } },
   rocks = { enabled = false },
   checker = {
-    enabled = true, -- check for plugin updates periodically
-    notify = false, -- notify on update
-  }, -- automatically check for plugin updates
+    -- aus: lockfile ist via chezmoi versioniert, autoupdate lief 2x am
+    -- lockfile vorbei und hat headless-nvim aufgehaengt
+    enabled = false,
+    notify = false,
+  },
   performance = {
     rtp = {
       -- disable some rtp plugins
