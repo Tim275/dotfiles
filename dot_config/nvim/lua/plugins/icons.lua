@@ -10,8 +10,11 @@ return {
     "nvim-tree/nvim-web-devicons",
     opts = {
       override_by_extension = {
+        tofu = { icon = cube, color = "#e0af68", name = "OpenTofu" },
         yaml = { icon = yml, color = "#f7768e", name = "Yaml" },
         yml = { icon = yml, color = "#f7768e", name = "Yml" },
+        -- devicons hat fuer tfvars nur "fa-file" (generischer Klecks) hinterlegt
+        tfvars = { icon = terraform, color = "#5f43e9", name = "Tfvars" },
       },
     },
   },
