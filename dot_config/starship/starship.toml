@@ -6,7 +6,7 @@ format = """
 $directory$git_branch$git_state$git_status$fill$kubernetes$helm$terraform$azure
 $character"""
 
-right_format = """$status$jobs$golang$python$rust$nodejs$java$lua$ruby$php$c$docker_context$direnv$aws$cmd_duration"""
+right_format = """$status$jobs$golang$python$rust$nodejs$java$lua$ruby$php$c$docker_context$direnv$aws$cmd_duration$battery"""
 
 [fill]
 symbol = ' '
@@ -170,6 +170,22 @@ disabled = true
 format = '[$duration]($style) '
 style = 'bold yellow'
 min_time = 2000
+
+[battery]
+format = '[$symbol$percentage]($style) '
+disabled = false
+
+[[battery.display]]
+threshold = 10
+style = 'bold fg:#f7768e'
+
+[[battery.display]]
+threshold = 50
+style = 'fg:#e0af68'
+
+[[battery.display]]
+threshold = 100
+style = 'fg:#9ece6a'
 
 # tokyonight-night — gleiche Werte wie tmux + nvim
 [palettes.tokyonight]
