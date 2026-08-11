@@ -35,7 +35,7 @@ text="☸ $short:$ns"
 [ -n "$nodes" ] && text="$text $nodes"
 
 if [ "$safe" = "1" ]; then
-  echo "#[fg=green]$text#[default]"
+  echo "#[fg=#9ece6a]$text#[default]"
 else
   echo "$text"
 fi
