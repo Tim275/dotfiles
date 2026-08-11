@@ -80,6 +80,7 @@
   "vim-yaml-folds": { "branch": "master", "commit": "890ccd8e5370808d569e96dbb06cbeca2cf5993a" },
   "which-key.nvim": { "branch": "main", "commit": "3aab2147e74890957785941f0c1ad87d0a44c15a" },
   "windsurf.vim": { "branch": "main", "commit": "3c0a4f8a7be75113a6e19be13b7cc37210d6e26a" },
+  "yaml-companion.nvim": { "branch": "main", "commit": "131b0d67bd2e0f1a02e0daf2f3460482221ce3c0" },
   "yaml.nvim": { "branch": "main", "commit": "43ddedd0f3b060b4475e19e762b1796fce1b23be" },
   "yazi.nvim": { "branch": "main", "commit": "bba4c0579e4247729bf71b4104471eb131516922" }
 }
