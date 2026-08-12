@@ -1,19 +1,26 @@
 #!/usr/bin/env bash
 # Detail zum GitOps-Zaehler in der Statusbar (prefix + G)
 W="$HOME/.config/tmux/scripts"
-detail="/tmp/.tmux-gitops-unhealthy-detail"
+raw="/tmp/.tmux-gitops-raw"
 
 "$W/gitops-health.sh" >/dev/null 2>&1
 
 ctx=$(kubectl config current-context 2>/dev/null || echo "kein kubectl-Kontext")
-echo "Cluster: $ctx"
+total=$(grep -c . "$raw" 2>/dev/null || echo 0)
+echo "Cluster: $ctx   ($total von ArgoCD/Flux verwaltet)"
 echo
-echo "ArgoCD Degraded/Missing/Unknown · Flux Ready=False"
-echo
-if [ -s "$detail" ]; then
-  column -t -s $'\t' "$detail" | sed 's/^/  /'
+
+if [ "$total" -eq 0 ]; then
+  echo "  kein ArgoCD/Flux erreichbar"
 else
-  echo "  nichts kaputt"
+  auffaellig=$(awk -F'\t' '
+    $2 == "ArgoCD" && $3 != "Healthy" { print $1"\t"$2"\t"$3 }
+    $2 != "ArgoCD" && $3 != "True" && $4 != "true" { print $1"\t"$2"\t"$3 }' "$raw")
+  if [ -n "$auffaellig" ]; then
+    printf '%s\n' "$auffaellig" | column -t -s $'\t' | sed 's/^/  /'
+  else
+    echo "  alles healthy"
+  fi
 fi
 
 echo

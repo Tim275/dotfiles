@@ -5,8 +5,8 @@
 cache="/tmp/.tmux-vpn"
 mtime=$(stat -f %m "$cache" 2>/dev/null || stat -c %Y "$cache" 2>/dev/null || echo 0)
 if [ ! -f "$cache" ] || [ $(($(date +%s) - mtime)) -ge 15 ]; then
-  ok=$'\U000F0582'  # nf-md-vpn
-  bad=$'\U000F099D' # nf-md-shield-off
+  ok=$'\U000F0318'  # nf-md-lan-connect
+  bad=$'\U000F0319' # nf-md-lan-disconnect
   out=""
 
   if [ -f /Library/LaunchDaemons/netbird.plist ] ||
