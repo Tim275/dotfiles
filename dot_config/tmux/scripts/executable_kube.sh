@@ -31,11 +31,12 @@ if [ ! -f "$cache" ] || [ $(($(date +%s) - mtime)) -ge 10 ]; then
 fi
 nodes=$(cat "$cache" 2>/dev/null)
 
-text="☸ $short:$ns"
+icon=$'\U000F10FE' # nf-md-kubernetes
+text="$short:$ns"
 [ -n "$nodes" ] && text="$text $nodes"
 
 if [ "$safe" = "1" ]; then
-  echo "#[fg=#9ece6a]$text#[default]"
+  echo "#[fg=#9ece6a]$icon $text#[default]"
 else
-  echo "$text"
+  echo "#[fg=#326CE5]$icon#[fg=#c0caf5] $text#[default]"
 fi

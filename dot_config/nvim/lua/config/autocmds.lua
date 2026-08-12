@@ -33,6 +33,25 @@ end
 vim.api.nvim_create_autocmd("ColorScheme", { callback = red_keys })
 red_keys()
 
+-- Dateipfad als Winbar ueber dem Buffer (Bufferline zeigt nur Tab-Namen, kein Pfad)
+vim.api.nvim_set_hl(0, "WinBarPath", { fg = "#9aa5ce" })
+local winbar_ignore_ft = {
+  snacks_dashboard = true,
+  snacks_picker_list = true,
+  snacks_picker_input = true,
+  help = true,
+  TelescopePrompt = true,
+}
+vim.api.nvim_create_autocmd({ "BufWinEnter", "BufEnter", "WinEnter" }, {
+  callback = function(args)
+    if vim.bo[args.buf].buftype == "" and not winbar_ignore_ft[vim.bo[args.buf].filetype] then
+      vim.wo.winbar = "%#WinBarPath#  %f"
+    else
+      vim.wo.winbar = ""
+    end
+  end,
+})
+
 -- Binaerdateien (SQLite u.ae.) nie als Buchstabensalat rendern — zeigt nur
 -- einen Hinweis, ruft bewusst KEIN anderes Plugin auf (das brach letztes Mal)
 vim.api.nvim_create_autocmd("BufReadCmd", {
