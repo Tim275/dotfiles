@@ -1,12 +1,16 @@
 #!/usr/bin/env bash
 set -uo pipefail
 
+root=$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)
+
 rc=0
-for f in .chezmoiscripts/*; do
+for f in "$root"/.chezmoiscripts/*; do
   case "$f" in
     *.tmpl)
       out=$(mktemp)
-      if chezmoi execute-template < "$f" > "$out"; then
+      # --source explizit: ohne das loest {{ include }} gegen das echte
+      # Source-Dir des Users auf, das im CI-Runner nicht existiert
+      if chezmoi execute-template --source "$root" <"$f" >"$out"; then
         shellcheck -s bash "$out" || rc=1
       else
         echo "template rendert nicht: $f" >&2
