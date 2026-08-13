@@ -12,6 +12,7 @@ tap "morantron/tmux-fingers"
 brew "bdw-gc"
 brew "morantron/tmux-fingers/tmux-fingers"
 tap "nikitabobko/tap"
+tap "robusta-dev/krr"
 tap "siderolabs/tap"
 tap "stripe/stripe-cli"
 tap "supabase/tap"
@@ -277,6 +278,20 @@ brew "duf"
 brew "procs"
 # Zstandard is a real-time compression algorithm
 brew "zstd"
+# Diff tool for YAML files, and sometimes JSON
+brew "dyff"
+# FAST Kubernetes manifests validator, with support for Custom Resources
+brew "kubeconform"
+# Detect deprecated Kubernetes apiVersions
+brew "fairwindsops/tap/pluto"
+# Prometheus rule linter/validator
+brew "pint"
+# Kubernetes Resource Recommender by Robusta
+brew "robusta-dev/krr/krr"
+# CLI tool to discover unused Kubernetes resources
+brew "kor"
+# Tool for exploring each layer in a docker image
+brew "dive"
 # AeroSpace is an i3-like tiling window manager for macOS
 cask "nikitabobko/tap/aerospace"
 # Anthropic's official Claude AI desktop app
