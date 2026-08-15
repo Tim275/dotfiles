@@ -29,15 +29,22 @@ count_prog() {
     $2 != "ArgoCD" && $3 == "Unknown" && $4 != "true" { c++ }
     END { print c + 0 }'
 }
+# nur ArgoCD: wartet auf manuellen Sync (Workloads sind bewusst nicht automated)
+count_outofsync() {
+  awk -F'\t' '$2 == "ArgoCD" && $4 == "OutOfSync" { c++ } END { print c + 0 }'
+}
 
 render() { # $1=label $2=daten
-  local total bad prog
+  local total bad prog oos
   total=$(printf '%s' "$2" | grep -c .)
   [ "$total" -eq 0 ] && return
   bad=$(printf '%s' "$2" | count_bad)
+  oos=$(printf '%s' "$2" | count_outofsync)
   prog=$(printf '%s' "$2" | count_prog)
   if [ "$bad" -gt 0 ]; then
     printf ' #[fg=#f7768e]%s %s/%s#[default]' "$1" "$bad" "$total"
+  elif [ "$oos" -gt 0 ]; then
+    printf ' #[fg=#7dcfff]%s %s ⇅%s#[default]' "$1" "$total" "$oos"
   elif [ "$prog" -gt 0 ]; then
     printf ' #[fg=#e0af68]%s %s ⟳%s#[default]' "$1" "$total" "$prog"
   else
@@ -48,7 +55,7 @@ render() { # $1=label $2=daten
 # $(...) frisst den abschliessenden Zeilenumbruch — ohne das explizite \n beim
 # Anhaengen verschmelzen letzte und erste Zeile zweier Abfragen zu einer.
 argo=$(timeout 3 kubectl get applications.argoproj.io -A \
-  -o jsonpath='{range .items[*]}{.metadata.name}{"\tArgoCD\t"}{.status.health.status}{"\t\n"}{end}' \
+  -o jsonpath='{range .items[*]}{.metadata.name}{"\tArgoCD\t"}{.status.health.status}{"\t"}{.status.sync.status}{"\n"}{end}' \
   2>/dev/null) || argo=""
 [ -n "$argo" ] && argo="$argo"$'\n'
 
