@@ -1,7 +1,7 @@
 tap "azure/kubelogin"
 tap "derailed/popeye"
 tap "fairwindsops/tap", "https://github.com/FairwindsOps/homebrew-tap"
-tap "felixkratz/formulae", "https://github.com/FelixKratz/homebrew-formulae"
+tap "felixkratz/formulae", "https://github.com/FelixKratz/homebrew-formulae" if OS.mac?
 tap "fluxcd/tap"
 tap "go-task/tap"
 tap "hashicorp/tap"
@@ -81,7 +81,7 @@ brew "docker-buildx"
 # Isolated development environments using Docker
 brew "docker-compose"
 # Select default apps for documents and URL schemes on macOS
-brew "duti"
+brew "duti" if OS.mac?
 # Modern, maintained replacement for ls
 brew "eza"
 # Like neofetch, but much faster because written mostly in C
@@ -197,7 +197,7 @@ brew "pipx"
 # Package compiler and linker metadata toolkit
 brew "pkgconf"
 # Paste PNG into files
-brew "pngpaste"
+brew "pngpaste" if OS.mac?
 # PDF rendering library (based on the xpdf-3.0 code base)
 brew "poppler"
 # Framework for managing multi-language pre-commit hooks
@@ -219,7 +219,7 @@ brew "sops"
 # Non-interactive SSH password auth
 brew "sshpass"
 # Custom macOS statusbar with shell plugin, interaction and graph support
-brew "felixkratz/formulae/sketchybar"
+brew "felixkratz/formulae/sketchybar" if OS.mac?
 # Context engineering layer
 brew "yvgude/lean-ctx/lean-ctx"
 # Cross-shell prompt for astronauts

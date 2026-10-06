@@ -1,5 +1,7 @@
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
+for b in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew /usr/local/bin/brew; do
+  [ -x "$b" ] && eval "$("$b" shellenv)" && break
+done
 
 # Created by `pipx` on 2025-06-07 21:33:59
 export PATH="$PATH:$HOME/.local/bin"

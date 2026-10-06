@@ -1,4 +1,12 @@
 
+# HOMEBREW (macOS und Linux)
+if [[ -z $HOMEBREW_PREFIX ]]; then
+  for b in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew /usr/local/bin/brew; do
+    [[ -x $b ]] && { eval "$($b shellenv)"; break; }
+  done
+fi
+typeset -U PATH path
+
 # COMPLETION (must be early — styles BEFORE compinit)
 setopt prompt_subst
 
@@ -32,10 +40,10 @@ fi
 alias compinit-refresh='rm -f ~/.zcompdump*; exec zsh'
 
 # PATH
-export PATH="/opt/homebrew/bin:$PATH"
+export PATH="$HOMEBREW_PREFIX/bin:$PATH"
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export PATH="$PATH:$HOME/.local/bin"
-export PATH="$PATH:$(go env GOPATH 2>/dev/null)/bin"
+export PATH="$PATH:$HOME/go/bin"
 
 # COMPLETION ENGINE — carapace (1000+ CLI specs) → fzf-tab (fuzzy menu + preview)
 export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense'
@@ -48,9 +56,8 @@ zstyle ':fzf-tab:*' switch-group '<' '>'
 zstyle ':fzf-tab:*' fzf-flags --height=60% --bind=tab:accept
 zstyle ':fzf-tab:*' continuous-trigger '/'
 
-# PLUGINS & TOOLS (cached brew prefix for performance)
-BREW_PREFIX="/opt/homebrew"
-source $BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# PLUGINS & TOOLS
+source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 eval "$(starship init zsh)"
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
@@ -75,7 +82,7 @@ bindkey jj vi-cmd-mode
 
 # ENVIRONMENT
 export LANG=en_US.UTF-8
-export EDITOR=/opt/homebrew/bin/nvim
+export EDITOR=$HOMEBREW_PREFIX/bin/nvim
 export GITHUB_USER=Tim275
 
 # KUBERNETES (Secure: Use ~/.kube/ for configs)
@@ -251,7 +258,7 @@ alias grbi="git rebase -i"
 alias gm="git merge"
 
 # DOCKER ALIASES
-( docker context use rancher-desktop >/dev/null 2>&1 & )
+[[ $OSTYPE == darwin* ]] && ( docker context use rancher-desktop >/dev/null 2>&1 & )
 
 alias d="docker"
 alias dco="docker compose"
@@ -314,6 +321,12 @@ alias lt='eza --tree --level=2 --icons'
 alias lta='eza --tree --level=3 --icons -a'
 alias cat='bat --style=auto'
 
+# Clipboard (Wayland)
+if [[ $OSTYPE != darwin* ]]; then
+  pbcopy() { wl-copy "$@"; }
+  pngpaste() { wl-paste -t image/png >"$1" || { rm -f "$1"; return 1; }; }
+fi
+
 # FZF navigation (Omer style)
 cx() { cd "$@" && ls; }
 fcd() { cd "$(find . -type d -not -path '*/.*' | fzf)" && ls; }
@@ -342,7 +355,7 @@ alias http="xh"
 alias fetch='fastfetch'
 alias gitinfo='onefetch'
 alias weather='curl wttr.in'
-alias ip='curl ifconfig.me'
+alias myip='curl ifconfig.me'
 alias ports='lsof -i -P -n | grep LISTEN'
 alias path='echo $PATH | tr ":" "\n"'
 alias reload='source ~/.zshrc && echo "✅ zshrc reloaded"'
@@ -416,13 +429,15 @@ img() {
 alias kube-azure="export KUBECONFIG=~/.kube/azure-config && echo '✓ Switched to Azure AKS'"
 alias kube-home="export KUBECONFIG=~/.kube/config && echo '✓ Switched to Homelab'"
 
+if [[ $OSTYPE == darwin* ]]; then
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="$HOME/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 # Homebrew nach Rancher Desktop — überschreibt RD-Tools (helm v4 → v3)
-export PATH="/opt/homebrew/bin:$PATH"
+export PATH="$HOMEBREW_PREFIX/bin:$PATH"
+fi
 
-# ── Talos Homelab Aliases (added 2026-05-07) ────────────────────────────
+# TALOS ALIASES
 # Talos: cluster health-check (multi-node aware)
 alias talos-health='talosctl -n 192.168.0.101 health --control-plane-nodes 192.168.0.101 --worker-nodes 192.168.0.103,192.168.0.104,192.168.0.105,192.168.0.107,192.168.0.108,192.168.0.109,192.168.0.110'
 
@@ -446,17 +461,17 @@ fi
 # lean-ctx shell hook — end
 
 # syntax-highlighting als LETZTES (wrappt alle ZLE-widgets, Plugin-Doku-Pflicht)
-source $BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # history-substring-search MUSS nach syntax-highlighting geladen werden (wrappt auch ZLE-widgets)
-source $BREW_PREFIX/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+source $HOMEBREW_PREFIX/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 bindkey '^[[A' history-substring-search-up      # Pfeil hoch — Standardtaste, jetzt praefix-bewusst
 bindkey '^[[B' history-substring-search-down    # Pfeil runter
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
 # Neovim-Guide: Quelle editieren -> PDF neu bauen (Quelle: ~/Desktop/Neovim/anleitung-quelle-v2.html)
-alias guide-render='"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --disable-gpu --no-pdf-header-footer --print-to-pdf="$HOME/Desktop/Neovim-Anleitung.pdf" "file://$HOME/Desktop/Neovim/anleitung-quelle-v2.html" 2>/dev/null && open ~/Desktop/Neovim-Anleitung.pdf'
+[[ $OSTYPE == darwin* ]] && alias guide-render='"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --disable-gpu --no-pdf-header-footer --print-to-pdf="$HOME/Desktop/Neovim-Anleitung.pdf" "file://$HOME/Desktop/Neovim/anleitung-quelle-v2.html" 2>/dev/null && open ~/Desktop/Neovim-Anleitung.pdf'
 alias ghd='gh dash'
 
 # bun completions
