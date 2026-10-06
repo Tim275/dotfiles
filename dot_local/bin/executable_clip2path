@@ -5,11 +5,20 @@ set -e
 TMPDIR="${TMPDIR:-/tmp}"
 IMGFILE="${TMPDIR}/clipboard_$(date +%s).png"
 
+if [ "$(uname -s)" = "Darwin" ]; then
+    paste_img() { pngpaste "$1"; }
+    paste_txt() { pbpaste; }
+else
+    paste_img() { wl-paste -t image/png >"$1"; }
+    paste_txt() { wl-paste; }
+fi
+
 # Try to paste image from clipboard
-if pngpaste "$IMGFILE" 2>/dev/null; then
+if paste_img "$IMGFILE" 2>/dev/null; then
     # Image was in clipboard, output the path
     printf '%s' "$IMGFILE"
 else
     # No image, paste text normally
-    pbpaste
+    rm -f "$IMGFILE"
+    paste_txt
 fi
