@@ -10,14 +10,15 @@ if [ ! -d "$dir" ]; then
 fi
 
 if ! command -v pay-respects >/dev/null; then
-  arch=$(uname -m)
-  case "$arch" in
-    arm64|aarch64) target="aarch64-apple-darwin" ;;
-    *) target="x86_64-apple-darwin" ;;
+  case "$(uname -s)-$(uname -m)" in
+    Darwin-arm64) target="aarch64-apple-darwin" ;;
+    Darwin-*) target="x86_64-apple-darwin" ;;
+    Linux-aarch64) target="aarch64-unknown-linux-musl" ;;
+    *) target="x86_64-unknown-linux-musl" ;;
   esac
   tmp=$(mktemp -d)
   url="https://github.com/iffse/pay-respects/releases/download/v0.8.8/pay-respects-0.8.8-$target.tar.zst"
-  # bsdtar liest .tar.zst direkt
+  # tar liest .tar.zst direkt, unter Linux braucht es zstd
   if curl -fsSL "$url" -o "$tmp/pr.tar.zst" && tar -xf "$tmp/pr.tar.zst" -C "$tmp"; then
     mkdir -p "$HOME/.local/bin"
     install -m 755 "$tmp/pay-respects" \
