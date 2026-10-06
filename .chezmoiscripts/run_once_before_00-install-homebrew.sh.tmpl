@@ -3,6 +3,18 @@ set -eu
 
 command -v brew >/dev/null 2>&1 && exit 0
 
+{{ if eq .chezmoi.os "linux" -}}
+missing=""
+for c in gcc make file ps; do
+  command -v "$c" >/dev/null 2>&1 || missing="$missing $c"
+done
+if [ -n "$missing" ]; then
+  echo "Homebrew braucht:$missing" >&2
+  echo "Fedora Atomic: sudo rpm-ostree install gcc make file procps-ng, danach neu starten" >&2
+  exit 1
+fi
+
+{{ end -}}
 NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 {{ if eq .chezmoi.os "linux" -}}
 [ -x /home/linuxbrew/.linuxbrew/bin/brew ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
