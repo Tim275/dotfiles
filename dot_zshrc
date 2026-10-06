@@ -79,8 +79,11 @@ export EDITOR=/opt/homebrew/bin/nvim
 export GITHUB_USER=Tim275
 
 # KUBERNETES (Secure: Use ~/.kube/ for configs)
-export KUBECONFIG="$HOME/.kube/homelab-admin.yaml"
 export TALOSCONFIG="$HOME/.kube/talos-config"
+
+# AZURE (tofu remote state)
+export AZURE_STORAGE_ACCOUNT=tofustatehomelab
+export AZURE_STORAGE_AUTH_MODE=login
 
 alias kube-oidc='export KUBECONFIG=$HOME/.kube/config-oidc && echo "✓ OIDC (timour@iam.timourhomelab.org)"'
 alias kube-admin='export KUBECONFIG=$HOME/.kube/config && echo "⚠  Admin (cert-based, break-glass only)"'
